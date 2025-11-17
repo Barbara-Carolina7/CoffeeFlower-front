@@ -1,8 +1,26 @@
-export const publicLinks = [
-  { to: "/", label: "Inicio" },
-  { to: "/about", label: "Nosotros" },
-  { to: "/contact", label: "Contacto" },
-  { to: "/login", label: "Iniciar sesión" },
+// src/data/navbarPublicLinks.js
+
+const navbarPublicLinks = [
+    { 
+        path: '/', 
+        label: 'Inicio' 
+    },
+    { 
+        path: '/products', 
+        label: 'Productos' 
+    },
+    { 
+        path: '/cart', 
+        label: 'Carrito' 
+    },
+    { 
+        path: '/my-orders', 
+        label: 'Mis Compras' // Solo visible si hay token, pero la ruta es pública
+    },
+    { 
+        path: '/about', 
+        label: 'Nosotros' 
+    },
 ];
 
-export default publicLinks;
+export default navbarPublicLinks;

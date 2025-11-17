@@ -1,57 +1,54 @@
-import React from "react";
-import DynamicTexts from "../molecules/DynamicTexts";
-import Image from "../atoms/Image";
+// src/compone tes/organisms/CardsDisplay.jsx
 
-function CardsDisplay({ content = [], className = "p-4", isCardList = false }) {
-  return (
-    <div className={className}>
-      <div
-        className={
-          isCardList
-            ? "flex flex-col gap-6 max-w-6xl mx-auto"
-            : "grid grid-cols-1 md:grid-cols-3 gap-4"
-        }
-      >
-        {content.map((item, index) => (
-          <div
-            key={index}
-            className={
-              isCardList
-                ? "flex flex-col sm:flex-row items-start border p-4 rounded-lg shadow-md"
-                : "border p-4 rounded-lg shadow-md"
-            }
-          >
-            {item.card.map((element, idx) => {
-              if (element.type === "image") {
-                return (
-                  <img
-                    key={idx}
-                    src={element.src}
-                    alt={element.alt}
-                    className={
-                      isCardList
-                        ? "w-24 h-24 object-contain sm:mr-4 mb-4 sm:mb-0"
-                        : element.className
-                    }
-                  />
-                );
-              }
-              if (element.type === "text") {
-                return (
-                  <DynamicTexts
-                    key={idx}
-                    Texts={[element]}
-                    className={isCardList ? "flex-1" : ""}
-                  />
-                );
-              }
-              return null;
-            })}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
+import React from 'react';
+import Image from '../atoms/Image.jsx'; 
+import Text from '../atoms/Text.jsx';
+import Button from '../atoms/Button.jsx';
+
+// Idealmente, esto sería una Molécula: ProductCard.jsx
+const ProductCard = ({ product, onAddToCart }) => {
+    return (
+        <div className="product-card">
+            <Image 
+                src={product.imageUrl || '/default-coffee.jpg'} // Asume que el producto tiene una URL de imagen
+                alt={`Imagen de ${product.name}`} 
+                className="card-image"
+            />
+            <div className="card-content">
+                <Text as="h3" className="card-title">{product.name}</Text>
+                <Text as="p" className="card-description">{product.description.substring(0, 80)}...</Text>
+                <Text as="span" className="card-price">${product.price.toFixed(2)}</Text>
+                
+                {/* Botón de acción */}
+                <Button 
+                    onClick={() => onAddToCart(product)} 
+                    className="btn-add-to-cart"
+                >
+                    Añadir al Carrito
+                </Button>
+            </div>
+        </div>
+    );
+};
+
+
+/**
+ * Organismo para mostrar una lista de productos en formato de tarjeta.
+ * @param {Array} items - Lista de objetos de producto.
+ * @param {function} onActionClick - Función a ejecutar al hacer click en el botón de la tarjeta (ej: añadir al carrito).
+ */
+const CardsDisplay = ({ items, onActionClick }) => {
+    return (
+        <div className="cards-display-grid">
+            {items.map(product => (
+                <ProductCard 
+                    key={product.id} 
+                    product={product} 
+                    onAddToCart={onActionClick} 
+                />
+            ))}
+        </div>
+    );
+};
 
 export default CardsDisplay;

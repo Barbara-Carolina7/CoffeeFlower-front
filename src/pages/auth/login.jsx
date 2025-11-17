@@ -1,127 +1,79 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom"; // Añadido useNavigate
-import Forms from '../../components/templates/Forms';
-import { generarMensaje } from '../../utils/GenerarMensaje';
-import UserService from '../../services/UserService';
+// src/pages/auth/login.jsx (Versión Optimizada)
+
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { login } from '../../services/AuthService';
+import { getCurrentRole } from '../../utils/auth'; 
+
+// Importa tus componentes
+import DynamicInput from '../../compone tes/molecules/DynamicInput.jsx'; // 👈 Usamos la molécula
+import Button from '../../compone tes/atoms/Button.jsx'; 
 
 const Login = () => {
-    const [form, setForm] = useState({ correo: "", contrasena: "" });
-    const [loading, setLoading] = useState(false);
-    const navigate = useNavigate(); // Añadido
+  // Usamos un solo objeto para manejar las credenciales
+  const [credentials, setCredentials] = useState({ username: '', password: '' });
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
-    const handleChange = (e) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
-    };
+  // Función única para manejar el cambio en cualquier campo
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setCredentials(prev => ({ ...prev, [name]: value }));
+  };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        if (!form.correo || !form.contrasena) {
-            generarMensaje('Completa todos los campos', 'warning');
-            return;
-        }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError(null);
 
-        setLoading(true);
+    try {
+      // Usamos el objeto credentials directamente
+      await login(credentials); 
+      
+      const role = getCurrentRole(); 
 
-        try {
-            const response = await UserService.login(form);
-            const { token, nombre, rol } = response.data;
+      if (role === 'ADMIN') {
+        navigate('/admin', { replace: true });
+      } else {
+        navigate('/', { replace: true });
+      }
 
-            // GUARDAR EN LOCALSTORAGE
-            localStorage.setItem('token', token);
-            localStorage.setItem('user', JSON.stringify({ nombre, rol }));
+    } catch (err) {
+      // Captura el error lanzado desde AuthService
+      setError(err.message); 
+    }
+  };
 
-            // MENSAJE DE BIENVENIDA
-            generarMensaje(`¡Bienvenido ${nombre}!`, 'success');
+  return (
+    <div className="login-container">
+      <h1>Iniciar Sesión</h1>
+      <form onSubmit={handleSubmit} className="login-form">
+        
+        {/* 1. Campo de Usuario/Email usando DynamicInput */}
+        <DynamicInput 
+          label="Usuario o Email" // Etiqueta visible
+          inputType="text" 
+          name="username" 
+          placeholder="Escribe tu usuario o email" 
+          value={credentials.username} 
+          onChange={handleChange} 
+        />
+        
+        {/* 2. Campo de Contraseña usando DynamicInput */}
+        <DynamicInput 
+          label="Contraseña" // Etiqueta visible
+          inputType="password" 
+          name="password" 
+          placeholder="Ingresa tu clave" 
+          value={credentials.password} 
+          onChange={handleChange} 
+        />
 
-            // REDIRECCIÓN SEGÚN ROL
-            setTimeout(() => {
-                if (rol.id === 1 || rol.id === 2) {
-                    navigate('/admin/dashboard');
-                } else if (rol.id === 5) {
-                    navigate('/'); // o '/dashboard' si tienes uno
-                }
-            }, 1500);
-
-        } catch (error) {
-            const msg = error.response?.data?.message || 'Error al iniciar sesión';
-            generarMensaje(msg, 'error');
-        } finally {
-            setLoading(false);
-            // Opcional: limpiar formulario
-            setForm({ correo: "", contrasena: "" });
-        }
-    };
-
-    const Login = [
-        {
-            type: "text",
-            text: [
-                {
-                    content: "Inicio de Sesión",
-                    variant: "h1",
-                    className: "text-center text-4xl font-medium mb-10 text-white",
-                }
-            ]
-        },
-        {
-            type: "inputs",
-            inputs: [
-                {
-                    type: "email",
-                    placeholder: "Correo Electrónico",
-                    name: "correo",
-                    value: form.correo,
-                    onChange: handleChange,
-                    required: true,
-                    autoComplete: "off",
-                    className: "w-full border-b-2 bg-transparent text-lg duration-300 focus-within:border-indigo-500 mb-4",
-                },
-                {
-                    type: "password",
-                    placeholder: "Contraseña",
-                    name: "contrasena",
-                    value: form.contrasena,
-                    onChange: handleChange,
-                    required: true,
-                    autoComplete: "current-password",
-                    className: "w-full border-b-2 bg-transparent text-lg duration-300 focus-within:border-indigo-500",
-                },
-            ],
-            className: "space-y-8"
-        },
-        {           
-            type: "button",
-            text: loading ? "Iniciando..." : "Iniciar Sesión",
-            disabled: loading,
-            className: `transform w-full mt-4 mb-4 rounded-sm py-2 font-bold duration-300 
-                       ${loading ? 'bg-indigo-400 cursor-not-allowed' : 'bg-indigo-600 hover:bg-indigo-400'}`,
-        },
-        {
-            type: "text",
-            text: [
-                {
-                    content: (
-                        <Link
-                            to="/create-user"
-                            className="text-indigo-400 hover:text-indigo-300 underline transition"
-                        >
-                            Crear usuario
-                        </Link>
-                    ),
-                    variant: "p",
-                    className: "text-center text-lg",
-                },
-            ],
-        },
-    ];
-
-    return (
-        <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-gray-900 via-blue-900 to-orange-800 p-4">
-            <form onSubmit={handleSubmit} className="w-full max-w-md space-y-10 rounded-2xl bg-white/10 p-10 backdrop-blur-xl shadow-2xl">
-                <Forms content={Login} />
-            </form>
-        </main>
-    );
+        {error && <p className="error-message">{error}</p>}
+        
+        <Button type="submit">Entrar</Button>
+      </form>
+    </div>
+  );
 };
 
 export default Login;

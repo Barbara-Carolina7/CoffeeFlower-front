@@ -1,89 +1,92 @@
+// src/compone tes/organisms/Navbar.jsx
 
-import React, { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom'; // Importa Link y useNavigate de React Router DOM
 
-function Navbar({ links, title }) {
-	const [isOpen, setIsOpen] = useState(false);
-	const navigate = useNavigate();
+// --- Importaciones ---
+// 1. Tu logo (asumiendo que está en src/assets)
+import LogoImage from '../../assets/logo.jpeg'; 
+// 2. Tu componente atómico Image
+import Image from '../atoms/Image.jsx'; 
+// 3. Tus datos de enlaces de navegación
+import navbarAdminLinks from '../../data/navbarAdminLinks.js';
+import navbarPublicLinks from '../../data/navbarPublicLinks.js';
+// 4. Tus funciones de utilidad para autenticación y logout
+import { getCurrentRole, logout } from '../../services/AuthService'; // Ajusta la ruta si es necesario (ej: ../../utils/auth.js)
 
-	const handleLogout = () => {
-		localStorage.removeItem('token');
-		localStorage.removeItem('user');
-		navigate('/login');
-		setIsOpen(false);
-	};
+const Navbar = () => {
+    // Estado para guardar el rol actual del usuario
+    const [userRole, setUserRole] = useState(null);
+    const navigate = useNavigate();
 
-	const handleLinkClick = (e, link) => {
-		if (link.label === 'Salir') {
-			e.preventDefault();
-			handleLogout();
-		} else {
-			setIsOpen(false);
-		}
-	};
+    // Efecto para verificar el rol del usuario cuando el componente se monta
+    // y cada vez que el localStorage cambie (útil después de login/logout)
+    useEffect(() => {
+        const role = getCurrentRole();
+        setUserRole(role);
 
-	return (
-		<nav className="bg-black text-white shadow-lg sticky top-0 z-50">
-			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-				<div className="flex justify-between items-center h-16">
+        // Opcional: Escuchar cambios en localStorage (ej: desde otra pestaña)
+        const handleStorageChange = () => {
+            setUserRole(getCurrentRole());
+        };
+        window.addEventListener('storage', handleStorageChange);
+        return () => window.removeEventListener('storage', handleStorageChange);
+    }, []);
 
-					<div className="flex-shrink-0">
-						<h1 className="text-2xl font-bold tracking-wider text-red-600">
-							{title}
-						</h1>
-					</div>
+    // Seleccionar los enlaces de navegación según el rol
+    // Si no hay rol (público) o rol de usuario, usa enlaces públicos. Si es admin, usa admin.
+    const navLinks = userRole === 'ADMIN' ? navbarAdminLinks : navbarPublicLinks;
 
-					<div className="hidden md:flex space-x-8">
-						{links.map((link, i) => (
-							<NavLink
-								key={i}
-								to={link.to}
-								onClick={(e) => link.label === 'Salir' && handleLinkClick(e, link)}
-								className={({ isActive }) =>
-									`px-3 py-2 text-lg font-medium transition-all duration-300 ${isActive ? 'text-red-500 border-b-2 border-red-500' : 'text-gray-300 hover:text-red-500 hover:border-b-2 hover:border-red-500'
-									}`
-								}
-							>
-								{link.label}
-							</NavLink>
-						))}
-					</div>
+    const handleLogout = () => {
+        logout(); // Llama a la función de logout
+        setUserRole(null); // Limpia el rol en el estado local
+        navigate('/login', { replace: true }); // Redirige al login
+    };
 
-					<div className="md:hidden">
-						<button
-							onClick={() => setIsOpen(!isOpen)}
-							className="text-gray-300 hover:text-red-500 focus:outline-none transition-colors"
-							aria-label="Toggle menu"
-						>
-							{isOpen ? (
-								<svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-								</svg>
-							) : (
-								<svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-								</svg>
-							)}
-						</button>
-					</div>
-				</div>
-			</div>
+    return (
+        <header className="navbar-header">
+            <div className="logo-section">
+                {/* Usando el componente atómico Image para el logo */}
+                <Link to="/"> {/* Hacer el logo clickeable al home */}
+                    <Image 
+                        src={LogoImage} 
+                        alt="Logo de Coffee Flower" 
+                        className="navbar-logo" 
+                    />
+                </Link>
+            </div>
+            
+            <nav className="links-section">
+                {/* Mapear y renderizar los enlaces */}
+                {navLinks.map(link => (
+                    <Link key={link.path} to={link.path} className="nav-link">
+                        {link.label}
+                    </Link>
+                ))}
 
-			<div className={`md:hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
-				<div className="px-2 pt-2 pb-3 space-y-1 bg-black/95 backdrop-blur-sm">
-					{links.map((link, i) => (
-						<NavLink
-							key={i}
-							to={link.to}
-							onClick={(e) => handleLinkClick(e, link)}
-							className={({ isActive }) => `block px-3 py-2 text-base font-medium rounded-md transition-all duration-300 ${isActive ? 'text-red-500 bg-red-900/30' : 'text-gray-300 hover:text-red-500 hover:bg-red-900/20'}`} >
-							{link.label}
-						</NavLink>
-					))}
-				</div>
-			</div>
-		</nav>
-	);
-}
+                {/* Si el usuario está logueado, mostrar el botón de Logout */}
+                {userRole && (
+                    <button onClick={handleLogout} className="nav-button logout-button">
+                        Cerrar Sesión
+                    </button>
+                )}
+
+                {/* Si no está logueado, mostrar el botón de Login */}
+                {!userRole && (
+                    <Link to="/login" className="nav-button login-button">
+                        Iniciar Sesión
+                    </Link>
+                )}
+
+                {/* Opcional: Botón de Registro si no está logueado */}
+                {!userRole && (
+                    <Link to="/create-user" className="nav-button register-button">
+                        Registrarse
+                    </Link>
+                )}
+            </nav>
+        </header>
+    );
+};
 
 export default Navbar;
