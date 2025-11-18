@@ -4,8 +4,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 
-
-import Navbar from 'src/componetes/organisms.jsx';
+import Navbar from './components/organisms/Navbar.jsx';
 
 import HomeUser from './pages/user/Home.jsx'; // Vista principal del usuario/público
 import Login from './pages/auth/login.jsx';
