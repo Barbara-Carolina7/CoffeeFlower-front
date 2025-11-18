@@ -1,21 +1,17 @@
-// src/App.jsx
+
 
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-// Componentes de la Interfaz
-// ------------------------------------------------------------------
-// CORREGIDO: Cambiado de './compone tes/...' a './components/...'
-import Navbar from './components/organisms/Navbar.jsx'; // Tu Navbar
-// ------------------------------------------------------------------
 
-// Páginas Públicas/Usuario
+
+import Navbar from 'src/componetes/organisms.jsx';
+
 import HomeUser from './pages/user/Home.jsx'; // Vista principal del usuario/público
 import Login from './pages/auth/login.jsx';
 import CreateUser from './pages/auth/create-user.jsx'; // Registro
 import Products from './pages/user/Products.jsx'; // Vista de la lista de productos
 
-// Páginas de Administrador
 import HomeAdmin from './pages/admin/HomeAdmin.jsx'; // Dashboard del Admin
 import AdminProducts from './pages/admin/AdminProducts.jsx'; // CRUD de productos
 
