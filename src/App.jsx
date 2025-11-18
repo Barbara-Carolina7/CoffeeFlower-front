@@ -1,45 +1,45 @@
+import { Routes, Route, useLocation } from 'react-router-dom';
+import { Suspense } from 'react';
+import { publicLinks } from './data/navbarPublicLinks';
+import { adminLinks } from './data/navbarAdminLinks';
+import Navbar from './components/organisms/Navbar';
+import { appRoutes } from './routes/config';
 
+function Layout() {
+  const location = useLocation();
 
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+  const isAdminRoute = location.pathname.startsWith('/admin');
+  const currentRoute = appRoutes.find(route => route.path === location.pathname);
+  const showNavbar = isAdminRoute || currentRoute?.showNavbar;
 
-///cambios
-import Navbar from './componetes/organisms/Navbar.jsx';
+  const navbarLinks = isAdminRoute ? adminLinks : publicLinks;
+  const navbarTitle = isAdminRoute ? 'Admin Naves Front' : 'Naves Front';
 
-import HomeUser from './pages/user/Home.jsx'; // Vista principal del usuario/público
-import Login from './pages/auth/Login.jsx';
-import CreateUser from './pages/auth/Create-user.jsx'; // Registro
-import Products from './pages/user/Products.jsx'; // Vista de la lista de productos
-import HomeAdmin from './pages/admin/HomeAdmin.jsx'; // Dashboard del Admin
+  return (
+    <>
+      {showNavbar && <Navbar links={navbarLinks} title={navbarTitle} />}
 
-
+      <main>
+        <Suspense
+          fallback={
+            <div className="flex items-center justify-center min-h-screen">
+              <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-blue-600"></div>
+            </div>
+          }
+        >
+          <Routes>
+            {appRoutes.map(({ path, element }) => (
+              <Route key={path} path={path} element={element} />
+            ))}
+          </Routes>
+        </Suspense>
+      </main>
+    </>
+  );
+}
 
 function App() {
-  return (
-    <BrowserRouter>
-      {/* La Navbar va FUERA de Routes para que se muestre en todas las rutas */}
-      <Navbar /> 
-      
-      <main> {/* Contenedor principal para el contenido de la página */}
-        <Routes>
-          {/* 1. RUTAS PÚBLICAS Y DE AUTENTICACIÓN */}
-          <Route path="/" element={<HomeUser />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/create-user" element={<CreateUser />} />
-          {/* Agrega aquí otras rutas públicas (ej: /product/:id, /cart, /about) */}
-
-          {/* 2. RUTAS PROTEGIDAS PARA ADMINISTRADOR */}
-          {/* Estas rutas solo son accesibles si el usuario tiene el rol 'ADMIN' */}
-          <Route element={<ProtectedRoute requiredRole="ADMIN" />}>
-            <Route path="/admin" element={<HomeAdmin />} />
-            <Route path="/admin/products" element={<AdminProducts />} />
-            {/* Agrega aquí otras rutas de administración (ej: /admin/orders, /admin/users) */}
-          </Route>
-        </Routes>
-      </main>
-    </BrowserRouter>
-  );
+  return <Layout />;
 }
 
 export default App;

@@ -1,101 +1,132 @@
-
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
-import { registerUser } from '../../services/AuthService.jsx'; 
-
-import DynamicInput from '../../componetes/molecules/DynamicInput.jsx'; 
-import Button from '../../componetes/atoms/Button.jsx'; 
-import Text from '../../componetes/atoms/Text.jsx'; 
-
-const initialUserState = {
-  username: '',
-  email: '',
-  password: '',
-  confirmPassword: '' 
-};
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Forms from '../../components/templates/Forms';
+import { generarMensaje } from '../../utils/GenerarMensaje';
+import UserService from '../../services/UserService';
 
 const CreateUser = () => {
-  const [userData, setUserData] = useState(initialUserState);
-  const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(false);
-  const navigate = useNavigate();
+    const [form, setForm] = useState({ nombre:"" ,correo: "", contrasena: "" });
+    const [loading, setLoading] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUserData(prev => ({ ...prev, [name]: value }));
-  };
+    const handleChange = (e) => {
+        setForm({ ...form, [e.target.name]: e.target.value });
+    };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError(null);
-    setSuccess(false);
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!form.correo || !form.contrasena) {
+            generarMensaje('Completa todos los campos', 'warning');
+            return;
+        }
 
-    if (userData.password !== userData.confirmPassword) {
-      setError('Las contraseñas no coinciden.');
-      return;
-    }
+        setLoading(true);
 
-    try {
-      const { confirmPassword, ...dataToSend } = userData; // Excluye confirmPassword
-      await registerUser(dataToSend);
-      
-      setSuccess(true);
-      setError(null);
-      setUserData(initialUserState); // Limpiar formulario
+        try {
+            const usuario = {
+                "nombre": form.nombre,
+                "correo": form.correo,
+                "contrasena": form.contrasena,
+                rol: {
+                    "id": 3
+                }
+            }
+            const response = await UserService.createUser(usuario);
 
-      setTimeout(() => {
-        navigate('/login');
-      }, 2000);
+            generarMensaje('usuario creado!', 'success');
 
-    } catch (err) {
-      setError(err.message);
-      setSuccess(false);
-    }
-  };
+            // Redirigir al dashboard
+            /*setTimeout(() => {
+                navigate('/dashboard');
+            }, 800);*/
 
-  return (
-    <div className="register-container">
-      <Text as="h1">Crear Cuenta - Coffee Flower</Text>
-      
-      <form onSubmit={handleSubmit} className="register-form">
-        
-        <DynamicInput 
-          label="Nombre de Usuario" inputType="text" name="username" 
-          value={userData.username} onChange={handleChange} 
-          placeholder="Define tu nombre de usuario" 
-        />
+        } catch (error) {
+            // ERRORES
+            const msg = error.response?.data?.message || 'Error al crear usuario';
+            generarMensaje(msg, 'error');
+        } finally {
+            setLoading(false);
+        }
+    };
 
-        <DynamicInput 
-          label="Correo Electrónico" inputType="email" name="email" 
-          value={userData.email} onChange={handleChange} 
-          placeholder="tu.correo@ejemplo.com" 
-        />
-        
-        <DynamicInput 
-          label="Contraseña" inputType="password" name="password" 
-          value={userData.password} onChange={handleChange} 
-          placeholder="Mínimo 8 caracteres" 
-        />
-        
-        <DynamicInput 
-          label="Confirmar Contraseña" inputType="password" name="confirmPassword" 
-          value={userData.confirmPassword} onChange={handleChange} 
-          placeholder="Repite la contraseña" 
-          // Muestra error si no coinciden
-          error={userData.password !== userData.confirmPassword && userData.confirmPassword ? 'Las contraseñas no coinciden' : ''}
-        />
-
-        {error && <Text as="p" className="error-message">{error}</Text>}
-        {success && <Text as="p" className="success-message">¡Cuenta creada con éxito! Serás redirigido al Login.</Text>}
-        
-        <Button type="submit">Registrarse</Button>
-      </form>
-      
-      <div className="login-link">
-        <Text>¿Ya tienes una cuenta? <Link to="/login">Inicia Sesión aquí</Link></Text>
-      </div>
-    </div>
-  );
+    const Login = [
+        {
+            type: "text",
+            text: [
+                {
+                    content: "Crear usuario",
+                    variant: "h1",
+                    className: "text-center text-4xl font-medium mb-10 text-white",
+                }
+            ]
+        },
+        {
+            type: "inputs",
+            inputs: [
+                {
+                    type: "text",
+                    placeholder: "Nombre usuario",
+                    name: "nombre",
+                    value: form.nombre,
+                    onChange: handleChange,
+                    required: true,
+                    autoComplete: "off",
+                    className: "w-full border-b-2 bg-transparent text-lg duration-300 focus-within:border-indigo-500 mb-4",
+                },
+                {
+                    type: "email",
+                    placeholder: "Correo Electrónico",
+                    name: "correo",
+                    value: form.correo,
+                    onChange: handleChange,
+                    required: true,
+                    autoComplete: "off",
+                    className: "w-full border-b-2 bg-transparent text-lg duration-300 focus-within:border-indigo-500 mb-4",
+                },
+                {
+                    type: "password",
+                    placeholder: "Contraseña",
+                    name: "contrasena",
+                    value: form.contrasena,
+                    onChange: handleChange,
+                    required: true,
+                    autoComplete: "current-password",
+                    className: "w-full border-b-2 bg-transparent text-lg duration-300 focus-within:border-indigo-500",
+                },
+            ],
+            className: "space-y-8"
+        },
+        {           
+            type: "button",
+            text: "Crear usuario",
+            className: "transform w-full mt-4 mb-4 rounded-sm bg-indigo-600 py-2 font-bold duration-300 hover:bg-indigo-400"
+        },
+        {
+      type: "text",
+      text: [
+        {
+          content: (
+            <Link
+              to="/login"
+              className="text-indigo-400 hover:text-indigo-300 underline transition"
+            >
+              Ya tengo un usuario
+            </Link>
+          ),
+          variant: "p",
+          className: "text-center text-lg",
+        },
+      ],
+    },
+    ];
+    return (
+        <>
+            <main className="flex min-h-screen items-center justify-center bg-gradient-to-br from-gray-900 via-blue-900 to-orange-800 p-4">
+                <form onSubmit={handleSubmit} className="w-full max-w-md space-y-10 rounded-2xl bg-white/10 p-10 backdrop-blur-xl shadow-2xl">
+                    <Forms content={Login} />
+                </form>
+            </main>
+        </>
+    );
 };
 
-export default CreateUser;
+export default CreateUser;   

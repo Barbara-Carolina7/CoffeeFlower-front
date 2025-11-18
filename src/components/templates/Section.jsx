@@ -1,7 +1,8 @@
 import React from "react";
 import DynamicTexts from "../molecules/DynamicTexts";
 import Image from "../atoms/Image";
-import CardsDisplay from "../organims/CardsDisplay";
+import CardsDisplay from "../organisms/CardsDisplay";
+import DynamicTable from "../molecules/DynamicTable";
 
 function Section({ content = [], className = "p-4" }) {
   return (
@@ -13,11 +14,7 @@ function Section({ content = [], className = "p-4" }) {
 
         if (item.type === "image") {
           return (
-            <img
-              key={index}
-              src={item.src}
-              alt={item.alt}
-              className={item.className}
+            <Image key={index} src={item.src} alt={item.alt} className={item.className}
             />
           );
         }
@@ -29,6 +26,19 @@ function Section({ content = [], className = "p-4" }) {
               content={item.cards}
               isCardList={item.type === "cardList"}
             />
+          );
+        }
+
+        if (item.type === "table") {
+          return (
+            <div key={index} className={item.className || "my-6"}>
+              {item.title && ( 
+                <h3 className="text-xl font-bold mb-3 text-gray-800"> 
+                  {item.title}
+                </h3>
+              )}
+              <DynamicTable columns={item.columns} data={item.data} striped hover />
+            </div>
           );
         }
 

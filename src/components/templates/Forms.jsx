@@ -12,7 +12,7 @@ function Forms({ content = [], className = "p-4" }) {
                 }
 
                 if(item.type === "button") {
-                    return <Button key={index} text={item.text} className={item.className} />;
+                    return <Button key={index} text={item.text} className={item.className} onClick={item.onClick}  disabled={item.disabled} />;
                 }
 
                 if(item.type === "inputs") {
