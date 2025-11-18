@@ -4,7 +4,10 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // Componentes de la Interfaz
-import Navbar from './compone tes/organisms/Navbar.jsx'; // Tu Navbar
+// ------------------------------------------------------------------
+// CORREGIDO: Cambiado de './compone tes/...' a './components/...'
+import Navbar from './components/organisms/Navbar.jsx'; // Tu Navbar
+// ------------------------------------------------------------------
 
 // Páginas Públicas/Usuario
 import HomeUser from './pages/user/Home.jsx'; // Vista principal del usuario/público
