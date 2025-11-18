@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { registerUser } from '../../services/AuthService'; 
+import { registerUser } from '../../services/AuthService.jsx'; 
 
 // Importa tus componentes
 import DynamicInput from '../../componetes/molecules/DynamicInput.jsx'; 

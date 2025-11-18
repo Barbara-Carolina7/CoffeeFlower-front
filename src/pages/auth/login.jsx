@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { login } from '../../services/AuthService';
+import { login } from '../../services/AuthService.jsx';
 import { getCurrentRole } from '../../utils/auth'; 
 
 // Importa tus componentes

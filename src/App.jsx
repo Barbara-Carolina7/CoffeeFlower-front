@@ -7,13 +7,12 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './componetes/organisms/Navbar.jsx';
 
 import HomeUser from './pages/user/Home.jsx'; // Vista principal del usuario/público
-import Login from './pages/auth/login.jsx';
-import CreateUser from './pages/auth/create-user.jsx'; // Registro
+import Login from './pages/auth/Login.jsx';
+import CreateUser from './pages/auth/Create-user.jsx'; // Registro
 import Products from './pages/user/Products.jsx'; // Vista de la lista de productos
 import HomeAdmin from './pages/admin/HomeAdmin.jsx'; // Dashboard del Admin
 
-// Componente para proteger rutas basado en roles
-import ProtectedRoute from './utils/ProtectedRoute.jsx'; // Asumiendo que lo creas en utils
+
 
 function App() {
   return (
