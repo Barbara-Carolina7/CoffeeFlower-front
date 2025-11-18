@@ -1,4 +1,3 @@
-// src/pages/admin/Facciones/HomeFacciones.jsx
 
 import React from 'react';
 import Text from '../../../componetes/atoms/Text.jsx';

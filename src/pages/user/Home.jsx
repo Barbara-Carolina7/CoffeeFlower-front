@@ -1,14 +1,14 @@
-// src/pages/user/Home.jsx
+
 
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { getAllProducts } from '../../services/ProductService'; // Para obtener productos destacados
 
-// Importa tus componentes
-import Text from '../../compone tes/atoms/Text.jsx';
-import Button from '../../compone tes/atoms/Button.jsx';
-import Section from '../../compone tes/templates/Section.jsx'; // Tu componente Template
-import CardsDisplay from '../../compone tes/organisms/CardsDisplay.jsx'; // Tu organismo para la lista
+
+import Text from '../../componetes/atoms/Text.jsx';
+import Button from '../../componetes/atoms/Button.jsx';
+import Section from '../../componetes/templates/Section.jsx'; // Tu componente Template
+import CardsDisplay from '../../componetes/organisms/CardsDisplay.jsx'; // Tu organismo para la lista
 
 const HomeUser = () => {
     const [featuredProducts, setFeaturedProducts] = useState([]);
@@ -17,12 +17,10 @@ const HomeUser = () => {
     const loadFeaturedProducts = async () => {
         setLoading(true);
         try {
-            // Llama a todos los productos y toma solo los primeros 3 o 4 para destacar
             const allProducts = await getAllProducts();
             setFeaturedProducts(allProducts.slice(0, 4)); 
         } catch (error) {
             console.error("Error al cargar productos destacados:", error);
-            // Si falla, no es un error crítico para el Home, solo mostramos un mensaje
             setFeaturedProducts([]);
         } finally {
             setLoading(false);
@@ -34,7 +32,6 @@ const HomeUser = () => {
     }, []);
 
     const handleViewProduct = (product) => {
-        // En un proyecto real, esto navegaría a /product/:id
         console.log(`Ver detalles de: ${product.name}`);
         alert(`Navegando a ${product.name}...`); 
     };

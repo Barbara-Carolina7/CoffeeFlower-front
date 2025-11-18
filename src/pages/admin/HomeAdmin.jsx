@@ -1,20 +1,15 @@
-// src/pages/admin/HomeAdmin.jsx
 
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-// Importa tus componentes
 import Text from '../../../componetes/atoms/Text.jsx';
 import Button from '../../../componetes/atoms/Button.jsx';
 import Section from '../../../componetes/templates/Section.jsx'; // Para estructurar el dashboard
 
-// Asumimos que tienes un componente Molecule para mostrar resúmenes/tarjetas de datos
-// import StatsCard from '../../../compone tes/molecules/StatsCard.jsx'; 
 
 const HomeAdmin = () => {
 
-    // Simulación de datos rápidos para un Dashboard
-    // En un proyecto real, esto se cargaría de un servicio (ej: AdminService.jsx)
+  
     const statsData = [
         { title: 'Productos', value: '45', link: '/admin/products', icon: '☕' },
         { title: 'Facciones', value: '8', link: '/admin/facciones', icon: '⚔️' },

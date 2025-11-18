@@ -1,4 +1,3 @@
-// src/pages/admin/Facciones/ListarFacciones.jsx
 
 import React, { useState, useEffect } from 'react';
 import { 
@@ -8,7 +7,6 @@ import {
   deleteFaccion 
 } from '../../../services/FaccionesService'; 
 
-// Importa tus componentes (Átomos y Moléculas)
 import Button from '../../../componetes/atoms/Button.jsx';
 import DynamicInput from '../../../componetes/molecules/DynamicInput.jsx'; 
 import Text from '../../../componetes/atoms/Text.jsx'; 
@@ -16,7 +14,6 @@ import Text from '../../../componetes/atoms/Text.jsx';
 const initialFaccionState = {
   name: '',
   description: '',
-  // Agrega más campos si tu modelo de Facción tiene (ej: lider, color)
 };
 
 const ListarFacciones = () => {
@@ -26,7 +23,6 @@ const ListarFacciones = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // --- Lógica de Carga de Datos (READ) ---
   const loadFacciones = async () => {
     setLoading(true);
     try {
@@ -44,7 +40,6 @@ const ListarFacciones = () => {
     loadFacciones();
   }, []);
 
-  // --- Manejo del Formulario ---
   const handleChange = (e) => {
     const { name, value } = e.target;
     setCurrentFaccion(prev => ({ ...prev, [name]: value }));
@@ -60,7 +55,6 @@ const ListarFacciones = () => {
         await createFaccion(currentFaccion);
       }
       
-      // Limpiar y recargar
       setCurrentFaccion(initialFaccionState);
       setIsEditing(false);
       loadFacciones();
@@ -70,7 +64,6 @@ const ListarFacciones = () => {
     }
   };
   
-  // --- Manejo de Acciones ---
   const startEdit = (faccion) => {
     setCurrentFaccion(faccion);
     setIsEditing(true);

@@ -1,21 +1,20 @@
-// src/pages/user/Products.jsx
+
 
 import React, { useState, useEffect } from 'react';
 import { getAllProducts } from '../../services/ProductService.jsx'; 
-import Text from '../../compone tes/atoms/Text.jsx'; 
-import CardsDisplay from '../../compone tes/organisms/CardsDisplay.jsx'; // Tu organismo para mostrar tarjetas
+import Text from '../../componetes/atoms/Text.jsx'; 
+import CardsDisplay from '../../componetes/organisms/CardsDisplay.jsx'; // Tu organismo para mostrar tarjetas
 
 const Products = () => {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // Función placeholder para añadir al carrito
     const handleAddToCart = (product) => {
-        // Lógica futura: Guardar el producto en el estado global o en localStorage para el carrito
+      
         console.log(`Producto añadido al carrito: ${product.name}`);
         alert(`¡${product.name} añadido al carrito!`); 
-        // Aquí se llamaría a un servicio de carrito (CartService.jsx)
+       
     };
 
     const loadProducts = async () => {

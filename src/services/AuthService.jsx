@@ -1,11 +1,9 @@
-// src/services/AuthService.jsx
 
 import api from '../api/axios';
 
 const API_AUTH_URL = '/auth'; // Endpoint base para la autenticación
 
 export const login = async (credentials) => {
-  // ... (código de login que ya tenemos)
   try {
     const response = await api.post(`${API_AUTH_URL}/login`, credentials); 
     const { token, role } = response.data;
@@ -21,9 +19,10 @@ export const login = async (credentials) => {
 };
 
 /**
- * Registra un nuevo usuario en el sistema.
- * @param {object} userData - Datos del usuario (username, email, password, etc.).
+ * Registra  nuevo usuario en el sistema.
+ * @param {object} userData 
  */
+
 export const registerUser = async (userData) => {
   try {
     // El backend de Spring Boot debe tener un endpoint como /auth/register

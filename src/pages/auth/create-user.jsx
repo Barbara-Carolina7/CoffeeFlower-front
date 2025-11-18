@@ -1,10 +1,8 @@
-// src/pages/auth/create-user.jsx
 
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { registerUser } from '../../services/AuthService.jsx'; 
 
-// Importa tus componentes
 import DynamicInput from '../../componetes/molecules/DynamicInput.jsx'; 
 import Button from '../../componetes/atoms/Button.jsx'; 
 import Text from '../../componetes/atoms/Text.jsx'; 
@@ -13,7 +11,6 @@ const initialUserState = {
   username: '',
   email: '',
   password: '',
-  // Dependiendo de tu backend, podrías necesitar confirmar la contraseña
   confirmPassword: '' 
 };
 
@@ -33,14 +30,12 @@ const CreateUser = () => {
     setError(null);
     setSuccess(false);
 
-    // 1. Validación básica del Frontend
     if (userData.password !== userData.confirmPassword) {
       setError('Las contraseñas no coinciden.');
       return;
     }
 
     try {
-      // 2. Llamada al servicio de registro (solo envía datos necesarios)
       const { confirmPassword, ...dataToSend } = userData; // Excluye confirmPassword
       await registerUser(dataToSend);
       
@@ -48,7 +43,6 @@ const CreateUser = () => {
       setError(null);
       setUserData(initialUserState); // Limpiar formulario
 
-      // Opcional: Redirigir al login después de un breve momento
       setTimeout(() => {
         navigate('/login');
       }, 2000);
