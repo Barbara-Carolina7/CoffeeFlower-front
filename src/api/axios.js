@@ -4,9 +4,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 // Importa tus componentes
-import Text from '../../../compone tes/atoms/Text.jsx';
-import Button from '../../../compone tes/atoms/Button.jsx';
-import Section from '../../../compone tes/templates/Section.jsx'; // Para estructurar el dashboard
+import Text from '../../../componetes/atoms/Text.jsx';
+import Button from '../../../componetes/atoms/Button.jsx';
+import Section from '../../../componetes/templates/Section.jsx'; // Para estructurar el dashboard
 
 // Asumimos que tienes un componente Molecule para mostrar resúmenes/tarjetas de datos
 // import StatsCard from '../../../compone tes/molecules/StatsCard.jsx'; 

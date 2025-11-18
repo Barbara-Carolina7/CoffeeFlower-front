@@ -10,7 +10,6 @@ import HomeUser from './pages/user/Home.jsx'; // Vista principal del usuario/pú
 import Login from './pages/auth/login.jsx';
 import CreateUser from './pages/auth/create-user.jsx'; // Registro
 import Products from './pages/user/Products.jsx'; // Vista de la lista de productos
-
 import HomeAdmin from './pages/admin/HomeAdmin.jsx'; // Dashboard del Admin
 import AdminProducts from './pages/admin/AdminProducts.jsx'; // CRUD de productos
 

@@ -5,9 +5,9 @@ import { useNavigate, Link } from 'react-router-dom';
 import { registerUser } from '../../services/AuthService'; 
 
 // Importa tus componentes
-import DynamicInput from '../../compone tes/molecules/DynamicInput.jsx'; 
-import Button from '../../compone tes/atoms/Button.jsx'; 
-import Text from '../../compone tes/atoms/Text.jsx'; 
+import DynamicInput from '../../componetes/molecules/DynamicInput.jsx'; 
+import Button from '../../componetes/atoms/Button.jsx'; 
+import Text from '../../componetes/atoms/Text.jsx'; 
 
 const initialUserState = {
   username: '',

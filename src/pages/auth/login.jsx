@@ -6,8 +6,8 @@ import { login } from '../../services/AuthService';
 import { getCurrentRole } from '../../utils/auth'; 
 
 // Importa tus componentes
-import DynamicInput from '../../compone tes/molecules/DynamicInput.jsx'; // 👈 Usamos la molécula
-import Button from '../../compone tes/atoms/Button.jsx'; 
+import DynamicInput from '../../componetes/molecules/DynamicInput.jsx'; // 👈 Usamos la molécula
+import Button from '../../componetes/atoms/Button.jsx'; 
 
 const Login = () => {
   // Usamos un solo objeto para manejar las credenciales

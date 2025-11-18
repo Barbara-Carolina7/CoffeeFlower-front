@@ -1,7 +1,7 @@
 // src/pages/user/Products.jsx
 
 import React, { useState, useEffect } from 'react';
-import { getAllProducts } from '../../services/ProductService'; 
+import { getAllProducts } from '../../services/ProductService.jsx'; 
 import Text from '../../compone tes/atoms/Text.jsx'; 
 import CardsDisplay from '../../compone tes/organisms/CardsDisplay.jsx'; // Tu organismo para mostrar tarjetas
 

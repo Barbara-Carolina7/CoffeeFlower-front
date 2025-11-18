@@ -1,7 +1,7 @@
 // src/pages/admin/Facciones/HomeFacciones.jsx
 
 import React from 'react';
-import Text from '../../../compone tes/atoms/Text.jsx';
+import Text from '../../../componetes/atoms/Text.jsx';
 import ListarFacciones from './ListarFacciones.jsx'; // Componente que hará el CRUD
 
 const HomeFacciones = () => {

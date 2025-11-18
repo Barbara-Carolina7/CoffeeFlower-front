@@ -9,9 +9,9 @@ import {
 } from '../../../services/FaccionesService'; 
 
 // Importa tus componentes (Átomos y Moléculas)
-import Button from '../../../compone tes/atoms/Button.jsx';
-import DynamicInput from '../../../compone tes/molecules/DynamicInput.jsx'; 
-import Text from '../../../compone tes/atoms/Text.jsx'; 
+import Button from '../../../componetes/atoms/Button.jsx';
+import DynamicInput from '../../../componetes/molecules/DynamicInput.jsx'; 
+import Text from '../../../componetes/atoms/Text.jsx'; 
 
 const initialFaccionState = {
   name: '',
