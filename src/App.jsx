@@ -11,7 +11,6 @@ import Login from './pages/auth/login.jsx';
 import CreateUser from './pages/auth/create-user.jsx'; // Registro
 import Products from './pages/user/Products.jsx'; // Vista de la lista de productos
 import HomeAdmin from './pages/admin/HomeAdmin.jsx'; // Dashboard del Admin
-import AdminProducts from './pages/admin/AdminProducts.jsx'; // CRUD de productos
 
 // Componente para proteger rutas basado en roles
 import ProtectedRoute from './utils/ProtectedRoute.jsx'; // Asumiendo que lo creas en utils
