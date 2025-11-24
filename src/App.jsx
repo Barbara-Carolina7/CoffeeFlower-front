@@ -1,5 +1,4 @@
 // App.jsx
-// Componente principal con configuración de rutas dinámicas
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
@@ -11,37 +10,42 @@ import { publicRoutes, adminRoutes } from './routes/config';
 import './App.css';
 
 function App() {
-  return (
-    <Router>
-      <AuthProvider>
-        <CartProvider>
-          <div className="App">
-            <Header />
-            <Routes>
-              {/* Rutas públicas */}
-              {publicRoutes.map(({ path, element: Element }) => (
-                <Route key={path} path={path} element={<Element />} />
-              ))}
+return ( <Router> <AuthProvider> <CartProvider> <div className="App"> <Header />
 
-              {/* Rutas de admin protegidas */}
-              {adminRoutes.map(({ path, element: Element }) => (
-                <Route
-                  key={path}
-                  path={path}
-                  element={
-                    <PrivateRoute requiredRole="admin">
-                      <Element />
-                    </PrivateRoute>
-                  }
-                />
-              ))}
-            </Routes>
-            <Footer />
-          </div>
-        </CartProvider>
-      </AuthProvider>
-    </Router>
-  );
+
+        <main className="app-main">
+          <Routes>
+            {/* Rutas públicas */}
+            {publicRoutes.map(({ path, element: Element }) => (
+              <Route key={path} path={path} element={<Element />} />
+            ))}
+
+            {/* Rutas de admin protegidas */}
+            {adminRoutes.map(({ path, element: Element }) => (
+              <Route
+                key={path}
+                path={path}
+                element={
+                  <PrivateRoute requiredRole="admin">
+                    <Element />
+                  </PrivateRoute>
+                }
+              />
+            ))}
+
+            {/* Ruta fallback: 404 */}
+            <Route path="*" element={<h2 style={{ textAlign: 'center', padding: '4rem' }}>Página no encontrada</h2>} />
+          </Routes>
+        </main>
+
+        <Footer />
+      </div>
+    </CartProvider>
+  </AuthProvider>
+</Router>
+
+
+);
 }
 
 export default App;

@@ -21,7 +21,7 @@ export const CartProvider = ({ children }) => {
 
     // carrito desde localStorage
     useEffect(() => {
-        const savedCart = localStorage.getItem('efarmaplus-cart');
+        const savedCart = localStorage.getItem('CoffeFlower-cart');
         if (savedCart) {
             setCartItems(JSON.parse(savedCart));
         }
@@ -29,7 +29,7 @@ export const CartProvider = ({ children }) => {
 
     // Guardar carrito en localStorage cuando cambie
     useEffect(() => {
-        localStorage.setItem('efarmaplus-cart', JSON.stringify(cartItems));
+        localStorage.setItem('CoffeFlower-cart', JSON.stringify(cartItems));
     }, [cartItems]);
 
     // Agregar producto al carrito

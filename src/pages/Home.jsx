@@ -1,93 +1,96 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getAllProducts } from '../services/productService';
-import { FaPrescriptionBottleAlt } from 'react-icons/fa';
 import ProductCard from '../components/atoms/ProductCard';
 import Button from '../components/atoms/Button';
 import { useCart } from '../context/CartContext';
 import '../styles/pages/Home.css';
 
 const Home = () => {
-    const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const navigate = useNavigate();
-    const { addToCart } = useCart();
+const [products, setProducts] = useState([]);
+const [loading, setLoading] = useState(true);
+const navigate = useNavigate();
+const { addToCart } = useCart();
 
-    // Cargar productos al montar el componente
-    useEffect(() => {
-        const loadProducts = async () => {
-            try {
-                const data = await getAllProducts();
-                setProducts(data);
-            } catch (error) {
-                console.error('Error al cargar productos:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        loadProducts();
-    }, []);
 
-    // Manejar agregar al carrito
-    const handleAddToCart = (product) => {
-        addToCart(product);
+// Cargar productos al montar el componente
+useEffect(() => {
+    const loadProducts = async () => {
+        try {
+            const data = await getAllProducts();
+            setProducts(data);
+        } catch (error) {
+            console.error('Error al cargar productos:', error);
+        } finally {
+            setLoading(false);
+        }
     };
+    loadProducts();
+}, []);
 
-    // Productos destacados (primeros 6)
-    const featuredProducts = products.slice(0, 6);
+// Manejar agregar al carrito
+const handleAddToCart = (product) => {
+    addToCart(product);
+};
 
-    if (loading) {
-        return <div className="loading">Cargando productos...</div>;
-    }
+// Productos destacados (primeros 6)
+const featuredProducts = products.slice(0, 6);
 
-    return (
-        <div className="home">
-            {/* Banner principal */}
-            <section className="hero">
-                <div className="hero-content">
-                    <h1>Bienvenido a eFarmaPlus</h1>
-                    <p>Tu farmacia online de confianza. Productos de calidad para tu salud y bienestar.</p>
+if (loading) {
+    return <div className="loading">Cargando productos...</div>;
+}
+
+return (
+    <div className="home">
+        {/* Banner principal */}
+        <section className="hero">
+            <div className="hero-content">
+                <h1>Bienvenidos a CoffeFlower</h1>
+                <p>Disfruta del mejor café artesanal, postres y accesorios seleccionados para ti.</p>
+            </div>
+        </section>
+
+        {/* Categorías principales */}
+        <section className="categories">
+            <h2>Categorías</h2>
+            <div className="category-grid">
+                <div className="category-card" onClick={() => navigate('/productos?categoria=Café')}>
+                    <h3>Café</h3>
                 </div>
-            </section>
+                <div className="category-card" onClick={() => navigate('/productos?categoria=Infusiones')}>
+                    <h3>Infusiones</h3>
+                </div>
+                <div className="category-card" onClick={() => navigate('/productos?categoria=Postres')}>
+                    <h3>Postres</h3>
+                </div>
+                <div className="category-card" onClick={() => navigate('/productos?categoria=Accesorios')}>
+                    <h3>Accesorios</h3>
+                </div>
+            </div>
+        </section>
 
-            {/* Categorías principales */}
-            <section className="categories">
-                <h2>Categorías</h2>
-                <div className="category-grid">
-                    <div className="category-card" onClick={() => navigate('/productos?categoria=Medicamentos')}>
-                        <span className="category-icon"><FaPrescriptionBottleAlt /></span>
-                        <h3>Medicamentos</h3>
-                    </div>
-                    <div className="category-card" onClick={() => navigate('/productos?categoria=Cuidado Personal')}>
-                        <span className="category-icon"><FaPrescriptionBottleAlt /></span>
-                        <h3>Cuidado Personal</h3>
-                    </div>
-                    <div className="category-card" onClick={() => navigate('/productos?categoria=Dermatología')}>
-                        <span className="category-icon"><FaPrescriptionBottleAlt /></span>
-                        <h3>Dermatología</h3>
-                    </div>
-                </div>
-            </section>
+        {/* Productos destacados */}
+        <section className="featured">
+            <h2>Productos Destacados</h2>
+            <div className="product-grid">
+                {featuredProducts.map(product => (
+                    <ProductCard
+                        key={product.id}
+                        product={product}
+                        onAddToCart={handleAddToCart}
+                    />
+                ))}
+            </div>
+            <div className="featured-footer">
+                <Button variant="outline" onClick={() => navigate('/productos')}>
+                    Ver Todos los Productos
+                </Button>
+            </div>
+        </section>
+    </div>
+);
 
-            <section className="featured">
-                <h2>Productos Destacados</h2>
-                <div className="product-grid">
-                    {featuredProducts.map(product => (
-                        <ProductCard
-                            key={product.id}
-                            product={product}
-                            onAddToCart={handleAddToCart}
-                        />
-                    ))}
-                </div>
-                <div className="featured-footer">
-                    <Button variant="outline" onClick={() => navigate('/productos')}>
-                        Ver Todos los Productos
-                    </Button>
-                </div>
-            </section>
-        </div>
-    );
+
 };
 
 export default Home;

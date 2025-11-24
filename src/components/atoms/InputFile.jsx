@@ -1,58 +1,59 @@
 import React, { useRef } from 'react';
 import '../../styles/atoms/InputFile.css';
-
+import '../../styles/atoms/Button.css'; // Para mantener consistencia con tus botones
 
 const InputFile = ({ onChange, accept = 'image/*', label, preview, error }) => {
-    const inputRef = useRef(null);
+const inputRef = useRef(null);
 
-    const handleChange = (e) => {
-        const file = e.target.files[0];
-        if (file && onChange) {
-            onChange(file);
-        }
-    };
 
-    const handleClick = () => {
-        inputRef.current?.click();
-    };
+const handleChange = (e) => {  
+    const file = e.target.files[0];  
+    if (file && onChange) onChange(file);  
+};  
 
-    return (
-        <div className="input-file-container">
-            {label && <label className="input-file-label">{label}</label>}
+const handleClick = () => {  
+    inputRef.current?.click();  
+};  
 
-            <input
-                ref={inputRef}
-                type="file"
-                accept={accept}
-                onChange={handleChange}
-                className="input-file-hidden"
-            />
+return (  
+    <div className="input-file-container">  
+        {label && <label className="input-file-label">{label}</label>}  
 
-            {preview ? (
-                <div className="input-file-preview">
-                    <img src={preview} alt="Preview" />
-                    <button
-                        type="button"
-                        className="btn-change-image"
-                        onClick={handleClick}
-                    >
-                        Cambiar imagen
-                    </button>
-                </div>
-            ) : (
-                <button
-                    type="button"
-                    className="input-file-button"
-                    onClick={handleClick}
-                >
-                    <span className="upload-icon">📁</span>
-                    <span>Seleccionar archivo</span>
-                </button>
-            )}
+        <input  
+            ref={inputRef}  
+            type="file"  
+            accept={accept}  
+            onChange={handleChange}  
+            className="input-file-hidden"  
+        />  
 
-            {error && <span className="input-file-error">{error}</span>}
-        </div>
-    );
+        {preview ? (  
+            <div className="input-file-preview">  
+                <img src={preview} alt="Preview" className="preview-image" />  
+                <button  
+                    type="button"  
+                    className="btn btn-secondary btn-full"  
+                    onClick={handleClick}  
+                >  
+                    Cambiar imagen  
+                </button>  
+            </div>  
+        ) : (  
+            <button  
+                type="button"  
+                className="btn btn-primary btn-full"  
+                onClick={handleClick}  
+            >  
+                <span className="upload-icon">📁</span>  
+                <span>Seleccionar archivo</span>  
+            </button>  
+        )}  
+
+        {error && <span className="input-file-error">{error}</span>}  
+    </div>  
+);  
+
+
 };
 
 export default InputFile;
