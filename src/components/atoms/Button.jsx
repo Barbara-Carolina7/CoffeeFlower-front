@@ -1,16 +1,24 @@
-// src/components/atoms/Button.jsx
-import React from "react";
+import React from 'react';
+import '../../styles/atoms/Button.css';
 
-function Button({ text, onClick, className = "", disabled = false, ...props }) {
-	return (
-		<button onClick={onClick} disabled={disabled} 
-			className={`px-4 py-2.5 rounded-lg font-medium text-sm transition-all  
-						focus:outline-none focus:ring-2 focus:ring-offset-2 
-						${disabled ? 'opacity-60 cursor-not-allowed' : 'hover:scale-105 active:scale-95'}
-        	${className} `} {...props} >
-				{text}
-		</button>
-	);
-}
+const Button = ({
+    children,
+    onClick,
+    variant = 'primary',
+    type = 'button',
+    disabled = false,
+    fullWidth = false
+}) => {
+    return (
+        <button
+            className={`btn btn-${variant} ${fullWidth ? 'btn-full' : ''}`}
+            onClick={onClick}
+            type={type}
+            disabled={disabled}
+        >
+            {children}
+        </button>
+    );
+};
 
 export default Button;
