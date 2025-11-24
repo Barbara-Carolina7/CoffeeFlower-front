@@ -1,129 +1,149 @@
+/* Colores Clave:
+   - #f7f0f0 (Rosa Ultra Suave/Casi Blanco) - Fondo
+   - #f2d7d9 (Rosa Blush Suave) - Tarjetas y Secciones
+   - #e799a4 (Rosa Malva Principal) - Acentos/Degradados
+   - #8d626e (Malva Oscuro/Café Rosado - Iconos y Textos Secundarios)
+   - #5c3e44 (Vino Suave - Títulos y Texto Principal)
+*/
+
 .home {
-flex: 1;
+  flex: 1;
 }
 
+/* ------------------------------------------- */
+/* HERO SECTION */
+/* ------------------------------------------- */
 .hero {
-background: linear-gradient(135deg, #6b4f3c 0%, #a97c6d 100%); /* degradado café oscuro a marrón cálido */
-color: #fff5e6; /* letras beige claro */
-padding: 4rem 2rem;
-text-align: center;
+  /* Degradado Rosado Malva a Rosa Blush */
+  background: linear-gradient(135deg, #e799a4 0%, #f2d7d9 100%); 
+  color: #5c3e44; /* Letras en Vino Suave */
+  padding: 4rem 2rem;
+  text-align: center;
 }
 
 .hero-content {
-max-width: 800px;
-margin: 0 auto;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .hero h1 {
-font-size: 2.5rem;
-margin-bottom: 1rem;
-color: #fff5e6; /* beige claro */
-font-family: 'Segoe UI', sans-serif;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #5c3e44; /* Título en Vino Suave */
+  font-family: 'Segoe UI', sans-serif;
 }
 
 .hero p {
-font-size: 1.2rem;
-margin-bottom: 2rem;
-opacity: 0.95;
-color: #f0d6c0; /* beige suave */
-font-family: 'Arial', sans-serif;
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  opacity: 0.95;
+  color: #8d626e; /* Texto suave en Malva Oscuro */
+  font-family: 'Arial', sans-serif;
 }
 
+/* ------------------------------------------- */
+/* CATEGORIES SECTION */
+/* ------------------------------------------- */
 .categories {
-padding: 3rem 2rem;
-max-width: 1200px;
-margin: 0 auto;
+  padding: 3rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #f7f0f0; /* Fondo Rosa Ultra Suave */
 }
 
 .categories h2 {
-text-align: center;
-margin-bottom: 2rem;
-color: #4b3220; /* marrón oscuro */
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #5c3e44; /* Título en Vino Suave */
 }
 
 .category-grid {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-gap: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
 }
 
 .category-card {
-background: #d9bfa3; /* beige rosado suave */
-padding: 2rem;
-border-radius: 1rem;
-box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-text-align: center;
-cursor: pointer;
-transition: all 0.3s ease;
+  background: #f2d7d9; /* Fondo en Rosa Blush Suave */
+  padding: 2rem;
+  border-radius: 1rem;
+  /* Sombra sutil en tonos rosados */
+  box-shadow: 0 4px 12px rgba(220, 150, 160, 0.2); 
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .category-card:hover {
-transform: translateY(-4px);
-box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  transform: translateY(-4px);
+  /* Sombra más prominente al hacer hover */
+  box-shadow: 0 8px 25px rgba(220, 150, 160, 0.4);
+  background-color: #f5e6e8; /* Tono ligeramente más oscuro al pasar el ratón */
 }
 
 .category-icon {
-font-size: 3rem;
-display: block;
-margin-bottom: 1rem;
-color: #8b5c42; /* café medio */
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 1rem;
+  color: #e799a4; /* Icono en Rosa Malva Principal */
 }
 
 .category-card h3 {
-color: #4b3220; /* marrón oscuro */
-font-size: 1.2rem;
+  color: #5c3e44; /* Título en Vino Suave */
+  font-size: 1.2rem;
 }
 
+/* ------------------------------------------- */
+/* FEATURED PRODUCTS SECTION */
+/* ------------------------------------------- */
 .featured {
-padding: 3rem 2rem;
-background: #f5e6da; /* beige claro */
+  padding: 3rem 2rem;
+  background: #fff0f2; /* Fondo Rosa Blush muy suave */
 }
 
 .featured h2 {
-text-align: center;
-max-width: 1200px;
-margin: 0 auto 2rem;
-color: #4b3220; /* marrón oscuro */
+  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto 2rem;
+  color: #5c3e44; /* Título en Vino Suave */
 }
 
 .product-grid {
-display: grid;
-grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-gap: 1.5rem;
-max-width: 1200px;
-margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .featured-footer {
-text-align: center;
-margin-top: 2rem;
+  text-align: center;
+  margin-top: 2rem;
 }
 
 .loading {
-text-align: center;
-padding: 4rem 2rem;
-font-size: 1.2rem;
-color: #7a4f4f; /* marrón rosado */
+  text-align: center;
+  padding: 4rem 2rem;
+  font-size: 1.2rem;
+  color: #e799a4; /* Texto de carga en Rosa Malva Principal */
 }
 
+/* ------------------------------------------- */
 /* Responsive */
+/* ------------------------------------------- */
 @media (max-width: 768px) {
-.hero h1 {
-font-size: 2rem;
-}
-
-
-.hero p {
+  .hero h1 {
+    font-size: 2rem;
+  }
+  .hero p {
     font-size: 1rem;
-}
+  }
 
-.category-grid {
+  .category-grid {
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-}
+  }
 
-.product-grid {
+  .product-grid {
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-}
-
-
+  }
 }

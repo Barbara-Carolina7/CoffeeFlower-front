@@ -51,28 +51,28 @@ const Dashboard = () => {
             title: 'Productos',
             value: stats.totalProducts,
             icon: <FaBox />,
-            color: '#10b981',
+            color: '#fa82c4ff',
             link: '/admin/productos'
         },
         {
             title: 'Usuarios',
             value: stats.totalUsers,
             icon: <FaUsers />,
-            color: '#3b82f6',
+            color: '#fd8ed8ff',
             link: '/admin/usuarios'
         },
         {
             title: 'Pedidos',
             value: stats.totalOrders,
             icon: <FaClipboardList />,
-            color: '#f59e0b',
+            color: '#f188bdff',
             link: '/admin/pedidos'
         },
         {
             title: 'Ingresos',
             value: `$${stats.revenue.toLocaleString()}`,
             icon: <FaDollarSign />,
-            color: '#8b5cf6',
+            color: '#f58dd2ff',
             link: null
         }
     ];

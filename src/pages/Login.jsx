@@ -82,7 +82,13 @@ const Login = () => {
         <div className="auth-page">
             <div className="auth-container">
                 <div className="auth-header">
-                    <h1><FaPrescriptionBottleAlt /> eFarma</h1>
+                    <Link to="/" className="header-logo-container">
+                        <img 
+                            src="/logoo.jpg" 
+                            alt="Coffee Flower Logo" 
+                            className="logo-img-small" 
+                        />
+                    </Link>
                     <p>Inicia sesión en tu cuenta</p>
                 </div>
 

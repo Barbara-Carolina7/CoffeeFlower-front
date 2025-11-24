@@ -3,7 +3,7 @@ import NavButton from '../atoms/NavButton';
 import '../../styles/molecules/Navigation.css';
 
 const Navigation = () => {
-  const menuItems = ['Inicio', 'Medicamentos', 'Cuidado Personal', 'Ofertas', 'Contacto'];
+  const menuItems = ['Inicio', 'cafes', 'infuciones', 'postres', 'Contacto'];
 
   return (
     <nav className="navigation">

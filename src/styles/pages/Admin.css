@@ -1,10 +1,12 @@
+
+
 .admin-page {
 max-width: 1400px;
 margin: 0 auto;
 padding: 2rem;
 min-height: calc(100vh - 200px);
-background: #f5e6da; /* beige cálido */
-color: #4b3220;
+background: #f7f0f0; /* Rosa Ultra Suave como fondo principal */
+color: #5c3e44; /* Texto principal en Vino Suave */
 font-family: 'Segoe UI', sans-serif;
 }
 
@@ -14,24 +16,27 @@ justify-content: space-between;
 align-items: center;
 margin-bottom: 2rem;
 padding: 1rem 2rem;
-background: linear-gradient(135deg, #6b4f3c, #a97c6d);
+/* Gradiente Elegante: De Rosa Malva a Rosa Blush */
+background: linear-gradient(135deg, #e799a4, #f2d7d9);
 border-radius: 12px;
-color: #fff5e6;
-box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+color: #5c3e44; /* Títulos del header en Vino Suave */
+box-shadow: 0 4px 12px rgba(220, 150, 160, 0.3); /* Sombra rosada suave */
 }
 
 .admin-header h1 {
 margin: 0;
 font-size: 2rem;
+color: #5c3e44; /* Aseguramos el color del título */
 }
 
 .admin-header p {
 margin: 0.5rem 0 0 0;
 font-weight: 400;
-opacity: 0.85;
+opacity: 0.9;
+color: #8d626e; /* Descripción en Malva Oscuro */
 }
 
-/* Estadísticas */
+
 .stats-grid {
 display: grid;
 grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -40,10 +45,11 @@ margin-bottom: 2rem;
 }
 
 .stat-card {
-background: #fff0f2; /* rosa suave */
+background: #fff0f2; /* Rosa Blush muy suave para tarjetas */
 padding: 2rem;
 border-radius: 16px;
-box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+box-shadow: 0 6px 20px rgba(180, 140, 150, 0.15); /* Sombra suave */
+border: 1px solid #f2d7d9; /* Borde sutil */
 display: flex;
 align-items: center;
 gap: 1rem;
@@ -53,12 +59,12 @@ transition: transform 0.3s, box-shadow 0.3s;
 
 .stat-card:hover {
 transform: translateY(-4px);
-box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+box-shadow: 0 10px 25px rgba(180, 140, 150, 0.25); /* Sombra un poco más intensa */
 }
 
 .stat-icon {
 font-size: 3rem;
-color: #a97c6d; /* café rosado */
+color: #e799a4; /* Icono en Rosa Malva Principal */
 }
 
 .stat-info h3 {
@@ -66,17 +72,17 @@ margin: 0 0 0.5rem 0;
 font-size: 0.9rem;
 font-weight: 600;
 text-transform: uppercase;
-color: #6b4f3c;
+color: #8d626e; /* Título de la tarjeta en Malva Oscuro */
 }
 
 .stat-value {
 margin: 0;
 font-size: 2rem;
 font-weight: 700;
-color: #4b3220;
+color: #5c3e44; /* Valor en Vino Suave */
 }
 
-/* Acciones rápidas */
+
 .admin-actions {
 margin-top: 2rem;
 }
@@ -84,7 +90,7 @@ margin-top: 2rem;
 .admin-actions h2 {
 font-size: 1.5rem;
 margin-bottom: 1rem;
-color: #6b4f3c;
+color: #8d626e;
 }
 
 .action-buttons {
@@ -94,8 +100,9 @@ gap: 1.5rem;
 }
 
 .action-btn {
-background: linear-gradient(135deg, #d9bfa3, #f5e6da);
-border: none;
+
+background: linear-gradient(135deg, #f2d7d9, #fff0f2);
+border: 1px solid #e799a4; 
 padding: 1.5rem;
 border-radius: 16px;
 cursor: pointer;
@@ -105,20 +112,22 @@ align-items: center;
 gap: 0.5rem;
 font-size: 1rem;
 font-weight: 600;
-color: #4b3220;
+color: #5c3e44; 
 transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .action-btn:hover {
 transform: translateY(-4px);
-box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+box-shadow: 0 10px 25px rgba(231, 153, 164, 0.3); /* Sombra más fuerte y rosada */
+background: #f7e6e8; /* Un toque más oscuro al pasar el mouse */
 }
 
 .action-btn span:first-child {
 font-size: 2.5rem;
+color: #e799a4; /* Iconos en Rosa Malva Principal */
 }
 
-/* Formularios en modales */
+
 .dynamic-form {
 display: flex;
 flex-direction: column;
@@ -134,11 +143,11 @@ gap: 0.5rem;
 .form-group label {
 font-size: 0.95rem;
 font-weight: 600;
-color: #6b4f3c;
+color: #8d626e; /* Etiquetas en Malva Oscuro */
 }
 
 .required {
-color: #ef4444;
+color: #f06292; /* Rosa fuerte para requeridos */
 margin-left: 0.25rem;
 }
 
@@ -146,9 +155,11 @@ margin-left: 0.25rem;
 .form-group select,
 .form-group textarea {
 padding: 0.85rem;
-border: 1px solid #d1bfa3;
+border: 1px solid #f2d7d9; /* Borde sutilmente rosado */
 border-radius: 12px;
 font-size: 0.95rem;
+background-color: #fefafa;
+color: #5c3e44;
 transition: border-color 0.3s, box-shadow 0.3s;
 }
 
@@ -156,19 +167,19 @@ transition: border-color 0.3s, box-shadow 0.3s;
 .form-group select:focus,
 .form-group textarea:focus {
 outline: none;
-border-color: #a97c6d;
-box-shadow: 0 0 0 4px rgba(169,124,109,0.2);
+border-color: #e799a4; /* Borde de enfoque en Rosa Malva Principal */
+box-shadow: 0 0 0 4px rgba(231, 153, 164, 0.3); /* Sombra de enfoque rosada */
 }
 
 .form-group input.error,
 .form-group select.error,
 .form-group textarea.error {
-border-color: #ef4444;
+border-color: #f06292; /* Borde de error en Rosa Fuerte */
 }
 
 .error-message {
 font-size: 0.82rem;
-color: #ef4444;
+color: #f06292; /* Texto de error en Rosa Fuerte */
 }
 
 .form-actions {
@@ -185,19 +196,16 @@ padding: 1rem;
 }
 
 .admin-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
+flex-direction: column;
+align-items: flex-start;
+gap: 1rem;
 }
 
 .stats-grid {
-    grid-template-columns: 1fr;
+grid-template-columns: 1fr;
 }
 
 .action-buttons {
-    grid-template-columns: 1fr;
+grid-template-columns: 1fr;
 }
-
-
 }
-

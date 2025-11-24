@@ -1,9 +1,17 @@
+/* Colores Clave:
+   - #f7f0f0 (Rosa Ultra Suave/Casi Blanco) - Fondo
+   - #f2d7d9 (Rosa Blush Suave) - Fondo de sidebar
+   - #e799a4 (Rosa Malva Principal) - Acentos/Active
+   - #8d626e (Malva Oscuro/Café Rosado - Iconos y Textos Secundarios)
+   - #5c3e44 (Vino Suave - Títulos y Texto Principal)
+*/
+
 .products-page {
 flex: 1;
-background: #f5e6da; /* beige cálido */
+background: #f7f0f0; /* Fondo Rosa Ultra Suave */
 padding: 2rem;
 font-family: 'Segoe UI', sans-serif;
-color: #4b3220;
+color: #5c3e44; /* Texto principal en Vino Suave */
 }
 
 .products-container {
@@ -15,10 +23,11 @@ gap: 2rem;
 }
 
 .filters-sidebar {
-background: #fff0f2; /* rosa muy suave */
+background: #fff0f2; /* Fondo Rosa Blush muy suave */
 padding: 1.5rem;
 border-radius: 12px;
-box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+/* Sombra sutil en tonos rosados */
+box-shadow: 0 4px 12px rgba(220, 150, 160, 0.15); 
 height: fit-content;
 position: sticky;
 top: 2rem;
@@ -26,7 +35,7 @@ top: 2rem;
 
 .filters-sidebar h3 {
 margin-bottom: 1rem;
-color: #6b4f3c;
+color: #8d626e; /* Título de filtro en Malva Oscuro */
 }
 
 .category-filters {
@@ -43,18 +52,19 @@ text-align: left;
 border-radius: 8px;
 transition: all 0.2s ease;
 cursor: pointer;
-color: #8b5c42;
+color: #8d626e; /* Texto de filtro en Malva Oscuro */
 font-weight: 500;
 }
 
 .filter-button:hover {
-background: #f5e6da;
-color: #4b3220;
+background: #f2d7d9; /* Hover en Rosa Blush Suave */
+color: #5c3e44;
 }
 
 .filter-button.active {
-background: #6b4f3c; /* café medio */
-color: #fff5e6; /* beige claro */
+background: #e799a4; /* Botón activo en Rosa Malva Principal */
+color: #fff0f2; /* Letras claras para contraste */
+font-weight: 600;
 }
 
 .products-main {
@@ -66,12 +76,12 @@ margin-bottom: 2rem;
 }
 
 .products-header h1 {
-color: #4b3220;
+color: #5c3e44;
 margin-bottom: 0.5rem;
 }
 
 .products-count {
-color: #8b5c42;
+color: #8d626e;
 font-size: 0.95rem;
 }
 
@@ -84,14 +94,14 @@ gap: 1.5rem;
 .no-products {
 text-align: center;
 padding: 4rem 2rem;
-color: #8b5c42;
+color: #8d626e;
 }
 
 .loading {
 text-align: center;
 padding: 4rem 2rem;
 font-size: 1.2rem;
-color: #8b5c42;
+color: #e799a4; /* Texto de carga en Rosa Malva Principal */
 }
 
 /* Responsive */
@@ -102,12 +112,18 @@ grid-template-columns: 1fr;
 
 
 .filters-sidebar {
-    position: static;
+position: static;
 }
 
 .category-filters {
-    flex-direction: row;
-    flex-wrap: wrap;
+flex-direction: row;
+flex-wrap: wrap;
+    padding: 0.5rem 0; /* Agregado para espacio interno */
+}
+/* Aseguramos que los botones se adapten al espacio en móvil */
+.filter-button {
+    flex-grow: 1;
+    text-align: center;
 }
 
 
@@ -120,8 +136,8 @@ padding: 1rem;
 
 
 .product-grid {
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 1rem;
+grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+gap: 1rem;
 }
 
 

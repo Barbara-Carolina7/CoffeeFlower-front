@@ -2,12 +2,12 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(240, 115, 208, 0.1);
 }
 
 .header-container {
-  background-color: #131921;
-  color: white;
+  background-color: #ac578b;
+  color: rgb(255, 255, 255);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -53,12 +53,12 @@
 }
 
 .search-input:focus {
-  outline: 2px solid #ff9900;
+  outline: 2px solid #e794d5;
   outline-offset: -2px;
 }
 
 .search-button {
-  background: #febd69;
+  background: hwb(327 49% 3%);
   border: none;
   padding: 0 1.25rem;
   cursor: pointer;
@@ -68,7 +68,7 @@
 }
 
 .search-button:hover {
-  background: #f3a847;
+  background: hwb(327 49% 3%);
 }
 
 /* Usuario */
@@ -115,8 +115,8 @@
   position: absolute;
   top: 0;
   right: 0;
-  background: #ff9900;
-  color: #131921;
+  background: hwb(327 49% 3%);;
+  color: #4a1655;
   border-radius: 50%;
   width: 22px;
   height: 22px;
@@ -129,7 +129,7 @@
 
 /* Navegación secundaria */
 .header-nav {
-  background-color: #232f3e;
+  background-color: hwb(327 49% 3%);
   padding: 0.5rem 1.5rem;
 }
 

@@ -1,9 +1,18 @@
+/* Colores Clave:
+   - #f7f0f0 (Rosa Ultra Suave/Casi Blanco)
+   - #f2d7d9 (Rosa Blush Suave)
+   - #e799a4 (Rosa Malva Principal)
+   - #8d626e (Malva Oscuro/Café Rosado - Textos y Bordes)
+   - #5c3e44 (Vino Suave - Textos más oscuros)
+   - #f06292 (Rosa Fuerte para acciones/errores)
+*/
+
 .cart-page {
 flex: 1;
-background: #f5e6da; /* beige cálido */
+background: #f7f0f0; /* Fondo principal muy suave */
 padding: 2rem;
 font-family: 'Segoe UI', sans-serif;
-color: #4b3220;
+color: #5c3e44; /* Texto principal en Vino Suave */
 }
 
 .cart-container {
@@ -12,7 +21,7 @@ margin: 0 auto;
 }
 
 .cart-container h1 {
-color: #6b4f3c; /* café medio */
+color: #8d626e; /* Título en Malva Oscuro */
 margin-bottom: 2rem;
 }
 
@@ -31,16 +40,16 @@ text-align: center;
 font-size: 5rem;
 display: block;
 margin-bottom: 1rem;
-color: #8b5c42; /* café suave */
+color: #e799a4; /* Icono en Rosa Malva Principal */
 }
 
 .cart-empty-content h2 {
-color: #6b4f3c;
+color: #8d626e;
 margin-bottom: 0.5rem;
 }
 
 .cart-empty-content p {
-color: #8b5c42;
+color: #8d626e;
 margin-bottom: 2rem;
 }
 
@@ -57,10 +66,10 @@ gap: 1rem;
 }
 
 .cart-item {
-background: #fff0f2; /* rosa muy suave */
+background: #fff0f2; /* Rosa Blush muy suave para los artículos */
 padding: 1.5rem;
 border-radius: 12px;
-box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+box-shadow: 0 4px 12px rgba(180, 140, 150, 0.1); /* Sombra rosada suave */
 display: grid;
 grid-template-columns: 100px 1fr auto auto auto;
 gap: 1.5rem;
@@ -76,12 +85,12 @@ border-radius: 8px;
 
 .cart-item-info h3 {
 font-size: 1.1rem;
-color: #4b3220;
+color: #5c3e44;
 margin-bottom: 0.25rem;
 }
 
 .cart-item-category {
-color: #8b5c42;
+color: #8d626e;
 font-size: 0.9rem;
 }
 
@@ -89,33 +98,34 @@ font-size: 0.9rem;
 display: flex;
 align-items: center;
 gap: 0.75rem;
-background: #f5e6da;
+background: #f2d7d9; /* Fondo de cantidad en Rosa Blush Suave */
 padding: 0.5rem;
 border-radius: 8px;
 }
 
 .cart-item-quantity button {
-background: #fff0f2;
-border: 1px solid #d9bfa3;
+background: #fefafa;
+border: 1px solid #e799a4; /* Borde en Rosa Malva Principal */
 width: 32px;
 height: 32px;
 border-radius: 6px;
 font-size: 1.1rem;
 cursor: pointer;
+color: #8d626e;
 transition: all 0.2s ease;
 }
 
 .cart-item-quantity button:hover {
-background: #a97c6d;
-color: #fff5e6;
-border-color: #a97c6d;
+background: #e799a4; /* Hover en Rosa Malva Principal */
+color: #fff0f2;
+border-color: #e799a4;
 }
 
 .cart-item-quantity span {
 min-width: 30px;
 text-align: center;
 font-weight: 600;
-color: #4b3220;
+color: #5c3e44;
 }
 
 .cart-item-price {
@@ -128,18 +138,18 @@ min-width: 120px;
 
 .item-unit-price {
 font-size: 0.85rem;
-color: #8b5c42;
+color: #8d626e;
 }
 
 .item-total-price {
 font-size: 1.3rem;
 font-weight: 700;
-color: #4b3220;
+color: #5c3e44;
 }
 
 .cart-item-remove {
-background: #ef4444;
-color: #fff5e6;
+background: #f06292; /* Botón de eliminar en Rosa Fuerte */
+color: #fff0f2;
 border: none;
 width: 36px;
 height: 36px;
@@ -151,20 +161,21 @@ transition: all 0.2s ease;
 
 .cart-item-remove:hover {
 transform: scale(1.1);
+background: #d84370;
 }
 
 .cart-summary {
 background: #fff0f2;
 padding: 1.5rem;
 border-radius: 12px;
-box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+box-shadow: 0 4px 12px rgba(180, 140, 150, 0.1);
 height: fit-content;
 position: sticky;
 top: 2rem;
 }
 
 .cart-summary h3 {
-color: #4b3220;
+color: #5c3e44;
 margin-bottom: 1.5rem;
 }
 
@@ -172,19 +183,19 @@ margin-bottom: 1.5rem;
 display: flex;
 justify-content: space-between;
 margin-bottom: 1rem;
-color: #8b5c42;
+color: #8d626e;
 }
 
 .summary-divider {
 height: 1px;
-background: #d9bfa3;
+background: #f2d7d9; /* Línea divisoria suave */
 margin: 1.5rem 0;
 }
 
 .summary-total {
 font-size: 1.3rem;
 font-weight: 700;
-color: #4b3220;
+color: #5c3e44;
 }
 
 .summary-actions {
@@ -194,10 +205,28 @@ gap: 1rem;
 margin-top: 1.5rem;
 }
 
+/* Botón de Checkout */
+.checkout-button {
+    background: linear-gradient(135deg, #e799a4, #f2d7d9);
+    border: none;
+    padding: 1rem;
+    border-radius: 12px;
+    color: #5c3e44;
+    font-weight: 700;
+    font-size: 1.05rem;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.checkout-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(231, 153, 164, 0.3);
+}
+
 .clear-cart {
 background: transparent;
 border: none;
-color: #8b5c42;
+color: #e799a4; /* Enlace en Rosa Malva Principal */
 cursor: pointer;
 padding: 0.5rem;
 transition: color 0.2s ease;
@@ -205,7 +234,7 @@ font-size: 0.9rem;
 }
 
 .clear-cart:hover {
-color: #ef4444;
+color: #f06292; /* Hover en Rosa Fuerte */
 }
 
 /* Responsive */
@@ -216,7 +245,7 @@ grid-template-columns: 1fr;
 
 
 .cart-summary {
-    position: static;
+position: static;
 }
 
 
@@ -229,32 +258,40 @@ padding: 1rem;
 
 
 .cart-item {
-    grid-template-columns: 80px 1fr;
-    gap: 1rem;
-    padding: 1rem;
+
+grid-template-columns: 80px 1fr 36px; /* Imagen, Info/Precio, Botón eliminar */
+gap: 1rem;
+padding: 1rem;
 }
 
 .cart-item-image {
-    width: 80px;
-    height: 80px;
+width: 80px;
+height: 80px;
 }
 
 .cart-item-info {
-    grid-column: 1 / -1;
+
+grid-column: 2 / 3; 
 }
 
 .cart-item-quantity {
-    grid-column: 1 / 2;
+
+grid-column: 1 / 2;
+width: fit-content;
 }
 
 .cart-item-price {
-    grid-column: 2 / 3;
-    align-items: flex-start;
+
+grid-column: 2 / 3;
+align-items: flex-start;
+justify-self: end;
 }
 
 .cart-item-remove {
-    grid-column: 2 / 3;
-    justify-self: end;
+
+grid-column: 3 / 4;
+grid-row: 1 / 2;
+justify-self: end;
 }
 
 

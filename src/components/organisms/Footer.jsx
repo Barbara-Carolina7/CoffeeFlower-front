@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaPrescriptionBottleAlt, FaFacebookF, FaInstagram, FaTwitter, FaWhatsapp, FaEnvelope, FaPhone, FaMapMarkerAlt, FaCreditCard, FaUniversity, FaMoneyBillWave } from 'react-icons/fa';
+// Se usará FaCoffee en lugar de FaPrescriptionBottleAlt
+import { FaCoffee, FaFacebookF, FaInstagram, FaTwitter, FaWhatsapp, FaEnvelope, FaPhone, FaMapMarkerAlt, FaCreditCard, FaUniversity, FaMoneyBillWave } from 'react-icons/fa';
 import '../../styles/organisms/Footer.css';
 
 const Footer = () => {
@@ -9,13 +10,14 @@ const Footer = () => {
             <div className="footer-main">
                 <div className="footer-container">
                     <div className="footer-column">
+                        {/* 🚨 LOGO AJUSTADO A COFFEE FLOWER */}
                         <div className="footer-logo">
-                            <span className="logo-icon"><FaPrescriptionBottleAlt /></span>
-                            <span className="logo-text">eFarma</span>
+                            <span className="logo-icon"><FaCoffee /></span>
+                            <span className="logo-text">CoffeeFlower</span>
                         </div>
                         <p className="footer-description">
-                            Tu farmacia online de confianza. Productos de calidad,
-                            entrega rápida y los mejores precios del mercado.
+                            Tu rincón de **café de especialidad** y **postres artesanales**. 
+                            Disfruta de una experiencia única con nuestros productos seleccionados.
                         </p>
                         <div className="footer-social">
                             <a href="#" className="social-link" aria-label="Facebook"><FaFacebookF /></a>
@@ -40,6 +42,7 @@ const Footer = () => {
                             <li><Link to="/productos?categoria=Café">Cafe</Link></li>
                             <li><Link to="/productos?categoria=Infusiones">Infusiones</Link></li>
                             <li><Link to="/productos?categoria=Postres">Postres</Link></li>
+                            <li><Link to="/productos?categoria=Accesorios">Accesorios</Link></li>
                         </ul>
                     </div>
 
@@ -66,7 +69,7 @@ const Footer = () => {
             <div className="footer-bottom">
                 <div className="footer-container">
                     <p className="footer-copyright">
-                        © {new Date().getFullYear()} eFarma. Todos los derechos reservados.
+                        © {new Date().getFullYear()} CoffeeFlower. Todos los derechos reservados.
                     </p>
                     <div className="footer-payment">
                         <span className="payment-text">Métodos de pago:</span>

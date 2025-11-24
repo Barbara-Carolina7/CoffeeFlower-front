@@ -1,9 +1,19 @@
+/* Colores Clave:
+   - #f7f0f0 (Rosa Ultra Suave/Casi Blanco) 
+   - #f2d7d9 (Rosa Blush Suave - Hover de filas)
+   - #e799a4 (Rosa Malva Principal - Botón Editar/Hover)
+   - #8d626e (Malva Oscuro/Café Rosado - Header de tabla, Texto Secundario)
+   - #5c3e44 (Vino Suave - Texto Principal, Título de botón)
+   - #f06292 (Rosa Fuerte - Botón Eliminar/Hover)
+*/
+
 .table-container {
     width: 100%;
     overflow-x: auto;
-    background: white;
+    background: #fff0f2; /* Rosa Blush muy suave para el contenedor */
     border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    /* Sombra sutil en tonos rosados */
+    box-shadow: 0 4px 12px rgba(180, 140, 150, 0.2); 
 }
 
 .dynamic-table {
@@ -13,8 +23,9 @@
 }
 
 .dynamic-table thead {
-    background: linear-gradient(135deg, var(--primary-green) 0%, #047857 100%);
-    color: white;
+    /* Degradado de Malva Oscuro a Rosa Malva Principal */
+    background: linear-gradient(135deg, #8d626e 0%, #e799a4 100%); 
+    color: #fff0f2; /* Texto claro para contraste */
 }
 
 .dynamic-table th {
@@ -27,12 +38,13 @@
 }
 
 .dynamic-table tbody tr {
-    border-bottom: 1px solid #e5e7eb;
+    /* Separador sutil en Rosa Blush Suave */
+    border-bottom: 1px solid #f2d7d9; 
     transition: background-color 0.2s;
 }
 
 .dynamic-table tbody tr:hover {
-    background-color: #f9fafb;
+    background-color: #f7f0f0; /* Hover en Rosa Ultra Suave */
 }
 
 .dynamic-table tbody tr.clickable {
@@ -41,7 +53,7 @@
 
 .dynamic-table td {
     padding: 1rem;
-    color: #374151;
+    color: #5c3e44; /* Texto de celda en Vino Suave */
 }
 
 .table-actions {
@@ -59,20 +71,25 @@
     padding: 0.25rem 0.5rem;
     border-radius: 4px;
     transition: all 0.2s;
+    color: #8d626e; /* Color base del icono */
 }
 
 .btn-edit:hover {
-    background: #dbeafe;
+    /* Hover de edición en Rosa Malva Principal muy suave */
+    background: #f2d7d9; 
+    color: #e799a4; /* Icono en Rosa Malva Principal */
 }
 
 .btn-delete:hover {
-    background: #fee2e2;
+    /* Hover de eliminación en Rosa Fuerte muy suave */
+    background: #f7e6e8; 
+    color: #f06292; /* Icono en Rosa Fuerte */
 }
 
 .table-empty {
     padding: 3rem;
     text-align: center;
-    color: #9ca3af;
+    color: #8d626e; /* Texto de vacío en Malva Oscuro */
 }
 
 .table-empty p {

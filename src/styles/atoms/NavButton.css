@@ -3,16 +3,16 @@
   border: none;
   padding: 0.5rem 1rem;
   cursor: pointer;
-  color: #333;
+  color: #c58888;
   font-size: 0.9rem;
   transition: color 0.3s ease;
 }
 
 .nav-button:hover {
-  color: #2d7d46;
+  color: #f1a5dc;
 }
 
 .nav-button.active {
-  color: #2d7d46;
+  color: #ec9fe6;
   font-weight: 600;
 }

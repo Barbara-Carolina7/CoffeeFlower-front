@@ -1,16 +1,25 @@
+/* Colores Clave:
+   - #f7f0f0 (Rosa Ultra Suave/Casi Blanco)
+   - #f2d7d9 (Rosa Blush Suave - Fondo del contenedor)
+   - #e799a4 (Rosa Malva Principal)
+   - #8d626e (Malva Oscuro/Café Rosado - Textos y Bordes)
+   - #5c3e44 (Vino Suave - Textos más oscuros)
+*/
+
 .auth-page {
 min-height: calc(100vh - 120px);
 display: flex;
 align-items: center;
 justify-content: center;
 padding: 2rem 1rem;
-background: linear-gradient(135deg, #6b4f3c 0%, #a97c6d 100%); /* degradado café */
+/* Degradado Rosado Suave: De Rosa Malva Principal a Rosa Blush */
+background: linear-gradient(135deg, #f7f0f0 0%, #f2d7d9 100%); 
 }
 
 .auth-container {
-background: #f5e6da; /* beige cálido */
+background: #fff0f2; /* Rosa Blush muy suave */
 border-radius: 16px;
-box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+box-shadow: 0 6px 20px rgba(220, 150, 160, 0.2); /* Sombra rosada sutil */
 padding: 2.5rem;
 width: 100%;
 max-width: 440px;
@@ -23,13 +32,13 @@ margin-bottom: 2rem;
 
 .auth-header h1 {
 font-size: 2rem;
-color: #4b3220; /* marrón oscuro */
+color: #5c3e44; /* Título en Vino Suave */
 margin: 0 0 0.5rem 0;
 font-family: 'Segoe UI', sans-serif;
 }
 
 .auth-header p {
-color: #6b4f3c; /* café medio */
+color: #8d626e; /* Descripción en Malva Oscuro */
 margin: 0;
 font-size: 0.95rem;
 }
@@ -49,34 +58,36 @@ gap: 0.5rem;
 .form-group label {
 font-size: 0.9rem;
 font-weight: 600;
-color: #4b3220;
+color: #8d626e; /* Etiquetas en Malva Oscuro */
 }
 
 .form-group input {
 padding: 0.75rem 1rem;
-border: 2px solid #d9bfa3;
+border: 2px solid #f2d7d9; /* Borde suave */
 border-radius: 12px;
 font-size: 0.95rem;
+background-color: #fefafa;
+color: #5c3e44;
 transition: all 0.2s;
 outline: none;
 }
 
 .form-group input:focus {
-border-color: #a97c6d;
-box-shadow: 0 0 0 3px rgba(169,124,109,0.2);
+border-color: #e799a4; /* Borde de enfoque en Rosa Malva Principal */
+box-shadow: 0 0 0 3px rgba(231, 153, 164, 0.3); /* Sombra de enfoque rosada */
 }
 
 .form-group input.error {
-border-color: #ef4444;
+border-color: #f06292; /* Rosa fuerte para errores */
 }
 
 .form-group input.error:focus {
-box-shadow: 0 0 0 3px rgba(239,68,68,0.2);
+box-shadow: 0 0 0 3px rgba(240, 98, 146, 0.3);
 }
 
 .error-message {
 font-size: 0.8125rem;
-color: #ef4444;
+color: #f06292; /* Texto de error en Rosa Fuerte */
 margin-top: -0.25rem;
 }
 
@@ -88,13 +99,13 @@ margin-top: -0.5rem;
 
 .link-secondary {
 font-size: 0.875rem;
-color: #8b5c42; /* café suave */
+color: #8d626e; /* Enlace en Malva Oscuro */
 text-decoration: none;
 transition: color 0.2s;
 }
 
 .link-secondary:hover {
-color: #4b3220;
+color: #5c3e44; /* Hover en Vino Suave */
 text-decoration: underline;
 }
 
@@ -103,41 +114,42 @@ margin-top: 0.5rem;
 padding: 0.875rem;
 font-size: 1rem;
 font-weight: 600;
-background: linear-gradient(135deg, #d9bfa3, #f5e6da);
+/* Gradiente del botón: De Rosa Malva a Rosa Blush */
+background: linear-gradient(135deg, #e799a4, #f2d7d9);
 border: none;
 border-radius: 12px;
-color: #4b3220;
+color: #5c3e44; /* Texto del botón en Vino Suave */
 cursor: pointer;
 transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .auth-form button[type="submit"]:hover {
 transform: translateY(-2px);
-box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+box-shadow: 0 6px 15px rgba(231, 153, 164, 0.3); /* Sombra de hover rosada */
 }
 
 .auth-footer {
 margin-top: 1.5rem;
 padding-top: 1.5rem;
-border-top: 1px solid #d9bfa3;
+border-top: 1px solid #f2d7d9; /* Línea divisoria suave */
 text-align: center;
 }
 
 .auth-footer p {
 margin: 0;
-color: #6b4f3c;
+color: #8d626e;
 font-size: 0.9rem;
 }
 
 .link-primary {
-color: #8b5c42;
+color: #e799a4; /* Enlace principal en Rosa Malva */
 text-decoration: none;
 font-weight: 600;
 transition: color 0.2s;
 }
 
 .link-primary:hover {
-color: #4b3220;
+color: #5c3e44;
 text-decoration: underline;
 }
 
@@ -148,12 +160,12 @@ padding: 2rem 1.5rem;
 
 
 .auth-header h1 {
-    font-size: 1.75rem;
+font-size: 1.75rem;
 }
 
 .form-group input {
-    padding: 0.625rem 0.875rem;
-    font-size: 0.9rem;
+padding: 0.625rem 0.875rem;
+font-size: 0.9rem;
 }
 
 
