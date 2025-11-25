@@ -1,28 +1,28 @@
-/* Colores Clave:
-   - #f7f0f0 (Rosa Ultra Suave/Casi Blanco)
-   - #f2d7d9 (Rosa Blush Suave - Fondo del contenedor)
-   - #e799a4 (Rosa Malva Principal)
-   - #8d626e (Malva Oscuro/Café Rosado - Textos y Bordes)
-   - #5c3e44 (Vino Suave - Textos más oscuros)
-*/
+/* --------------------------
+Colores Suaves Elegantes y Contraste Adecuado
+-------------------------- */
 
 .auth-page {
-min-height: calc(100vh - 120px);
+min-height: 100vh;
 display: flex;
 align-items: center;
 justify-content: center;
 padding: 2rem 1rem;
-/* Degradado Rosado Suave: De Rosa Malva Principal a Rosa Blush */
-background: linear-gradient(135deg, #f7f0f0 0%, #f2d7d9 100%); 
+background: linear-gradient(135deg, #f7e4eb 0%, #f7c8d8 100%); /* Fondo degradado sutil */
 }
 
 .auth-container {
-background: #fff0f2; /* Rosa Blush muy suave */
+background: #ffffff; /* Fondo blanco para contraste */
 border-radius: 16px;
-box-shadow: 0 6px 20px rgba(220, 150, 160, 0.2); /* Sombra rosada sutil */
+box-shadow: 0 6px 20px rgba(140, 107, 114, 0.15);
 padding: 2.5rem;
 width: 100%;
-max-width: 440px;
+max-width: 420px;
+transition: transform 0.3s;
+}
+
+.auth-container:hover {
+transform: translateY(-2px);
 }
 
 .auth-header {
@@ -30,15 +30,28 @@ text-align: center;
 margin-bottom: 2rem;
 }
 
-.auth-header h1 {
+.login-logo {
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 8px;
+font-size: 1.8rem;
+margin-bottom: 1rem;
+text-decoration: none;
+color: #d9aaba; /* Logo en Rosa Malva Principal */
+}
+
+.logo-icon {
 font-size: 2rem;
-color: #5c3e44; /* Título en Vino Suave */
-margin: 0 0 0.5rem 0;
-font-family: 'Segoe UI', sans-serif;
+}
+
+.logo-text {
+font-weight: 600;
+font-size: 1.4rem;
 }
 
 .auth-header p {
-color: #8d626e; /* Descripción en Malva Oscuro */
+color: #5c3e44; /* Subtítulo en Vino Suave */
 margin: 0;
 font-size: 0.95rem;
 }
@@ -46,103 +59,106 @@ font-size: 0.95rem;
 .auth-form {
 display: flex;
 flex-direction: column;
-gap: 1.25rem;
+gap: 1rem;
 }
 
 .form-group {
 display: flex;
 flex-direction: column;
-gap: 0.5rem;
+gap: 0.4rem;
 }
 
 .form-group label {
-font-size: 0.9rem;
+font-size: 0.875rem;
 font-weight: 600;
-color: #8d626e; /* Etiquetas en Malva Oscuro */
+color: #5c3e44; /* Labels visibles */
 }
 
 .form-group input {
 padding: 0.75rem 1rem;
-border: 2px solid #f2d7d9; /* Borde suave */
+border: 1.5px solid #e7a0ab; /* Borde Rosa Malva */
 border-radius: 12px;
 font-size: 0.95rem;
-background-color: #fefafa;
-color: #5c3e44;
+background-color: #fff; /* Fondo blanco */
+color: #5c3e44; /* Texto negro/oscuro para visibilidad */
 transition: all 0.2s;
 outline: none;
 }
 
+.form-group input::placeholder {
+color: #8c6b72; /* Placeholder gris suave */
+}
+
 .form-group input:focus {
-border-color: #e799a4; /* Borde de enfoque en Rosa Malva Principal */
-box-shadow: 0 0 0 3px rgba(231, 153, 164, 0.3); /* Sombra de enfoque rosada */
+border-color: #e07cae;
+box-shadow: 0 0 0 3px rgba(224, 124, 174, 0.15);
 }
 
 .form-group input.error {
-border-color: #f06292; /* Rosa fuerte para errores */
+border-color: #f28ca0;
 }
 
 .form-group input.error:focus {
-box-shadow: 0 0 0 3px rgba(240, 98, 146, 0.3);
+box-shadow: 0 0 0 3px rgba(242, 140, 160, 0.15);
 }
 
 .error-message {
-font-size: 0.8125rem;
-color: #f06292; /* Texto de error en Rosa Fuerte */
+font-size: 0.8rem;
+color: #f28ca0;
 margin-top: -0.25rem;
 }
 
 .form-links {
 display: flex;
 justify-content: flex-end;
-margin-top: -0.5rem;
+margin-top: -0.25rem;
 }
 
 .link-secondary {
 font-size: 0.875rem;
-color: #8d626e; /* Enlace en Malva Oscuro */
+color: #8c6b72;
 text-decoration: none;
 transition: color 0.2s;
 }
 
 .link-secondary:hover {
-color: #5c3e44; /* Hover en Vino Suave */
+color: #5c3e44;
 text-decoration: underline;
 }
 
 .auth-form button[type="submit"] {
 margin-top: 0.5rem;
-padding: 0.875rem;
+padding: 0.85rem;
 font-size: 1rem;
 font-weight: 600;
-/* Gradiente del botón: De Rosa Malva a Rosa Blush */
-background: linear-gradient(135deg, #e799a4, #f2d7d9);
+background: linear-gradient(135deg, #e07cae 0%, #f7e4eb 100%);
 border: none;
 border-radius: 12px;
-color: #5c3e44; /* Texto del botón en Vino Suave */
+color: #ffffff;
 cursor: pointer;
-transition: transform 0.3s, box-shadow 0.3s;
+transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .auth-form button[type="submit"]:hover {
-transform: translateY(-2px);
-box-shadow: 0 6px 15px rgba(231, 153, 164, 0.3); /* Sombra de hover rosada */
+transform: translateY(-1px);
+box-shadow: 0 4px 10px rgba(224, 124, 174, 0.3);
 }
 
 .auth-footer {
 margin-top: 1.5rem;
-padding-top: 1.5rem;
-border-top: 1px solid #f2d7d9; /* Línea divisoria suave */
+padding-top: 1.2rem;
+border-top: 1px solid #e7a0ab;
 text-align: center;
 }
 
 .auth-footer p {
 margin: 0;
-color: #8d626e;
+color: #5c3e44;
 font-size: 0.9rem;
 }
 
 .link-primary {
-color: #e799a4; /* Enlace principal en Rosa Malva */
+color: #e07cae;
 text-decoration: none;
 font-weight: 600;
 transition: color 0.2s;
@@ -157,16 +173,17 @@ text-decoration: underline;
 .auth-container {
 padding: 2rem 1.5rem;
 }
-
-
-.auth-header h1 {
-font-size: 1.75rem;
+.header-logo {
+font-size: 1.6rem;
 }
-
+.logo-icon {
+font-size: 1.8rem;
+}
+.logo-text {
+font-size: 1.2rem;
+}
 .form-group input {
 padding: 0.625rem 0.875rem;
 font-size: 0.9rem;
 }
-
-
 }

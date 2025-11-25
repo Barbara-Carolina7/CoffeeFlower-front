@@ -11,9 +11,9 @@ const Footer = () => {
                 <div className="footer-container">
                     <div className="footer-column">
                         {/* 🚨 LOGO AJUSTADO A COFFEE FLOWER */}
-                        <div className="footer-logo">
-                            <span className="logo-icon"><FaCoffee /></span>
-                            <span className="logo-text">CoffeeFlower</span>
+                        <div className="footer-logoo">
+                            <span className="logoo-icon"><FaCoffee /></span>
+                            <span className="logoo-text">CoffeeFlower</span>
                         </div>
                         <p className="footer-description">
                             Tu rincón de **café de especialidad** y **postres artesanales**. 

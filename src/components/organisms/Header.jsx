@@ -3,7 +3,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../../context/CartContext';
 import { useAuth } from '../../context/AuthContext';
 import { getCategories } from '../../services/productService';
-import { FaSearch, FaShoppingCart, FaCrown, FaPrescriptionBottleAlt } from 'react-icons/fa';
+// 🚨 CORRECCIÓN: Se agrega FaCoffee a la lista de importaciones
+import { FaSearch, FaShoppingCart, FaCrown, FaCoffee } from 'react-icons/fa';
 import '../../styles/organisms/Header.css';
 
 const Header = () => {
@@ -39,10 +40,11 @@ const Header = () => {
   const handleUserClick = (e) => {
     if (isAuthenticated()) {
       e.preventDefault();
-      const shouldLogout = window.confirm('¿Deseas cerrar sesión?');
-      if (shouldLogout) {
-        logout();
-      }
+      
+      
+      console.log('Usuario autenticado. Cerrando sesión...');
+      logout();
+      
     }
   };
 
@@ -50,10 +52,10 @@ const Header = () => {
     <header className="header">
       <div className="header-container">
         <Link to="/" className="header-logo">
-          <span className="logo-icon"><FaPrescriptionBottleAlt /></span>
-          <span className="logo-text">eFarma</span>
+          {/* ☕️ Ícono del café (FaCoffee) y texto "CoffeeFlower" */}
+          <span className="logo-icon"><FaCoffee /></span>
+          <span className="logo-text">CoffeeFlower</span>
         </Link>
-
         <form className="header-search" onSubmit={handleSearch}>
           <input
             type="text"
@@ -73,9 +75,9 @@ const Header = () => {
           onClick={handleUserClick}
         >
           <span className="user-greeting">
-            {isAuthenticated() ? `¡Hola, ${user.nombre}!` : '¡Hola!'}
+            {isAuthenticated() ? `¡Bienvenido, ${user.nombre}!` : '¡Bienvenido!'}
           </span>
-          <span className="user-action">{isAuthenticated() ? 'Mi cuenta' : 'Inicia sesión'}
+          <span className="user-action">{isAuthenticated() ? 'Cerrar sesión' : 'Inicia sesión'}
           </span>
         </Link>
 

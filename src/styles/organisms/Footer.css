@@ -1,12 +1,12 @@
 .footer {
     margin-top: auto;
-    background-color: hwb(327 49% 3%);;
+    background-color: hwb(327 56% 2%);;
     color: #f3cbff;
 }
 
 .footer-main {
     padding: 3rem 1.5rem 2rem;
-    background: linear-gradient(180deg, hwb(327 49% 3%) 0%, #ca2493 100%);
+    background: linear-gradient(180deg, hwb(327 63% 0%) 0%, #ca2493 100%);
 }
 
 .footer-container {
@@ -24,13 +24,13 @@
 }
 
 .footer-logo {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: rgb(255, 255, 255);
-    margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  padding: 0.5rem;
+  border-radius: 2px;
 }
 
 .footer-logo .logo-icon {

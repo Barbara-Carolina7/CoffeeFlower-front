@@ -94,7 +94,7 @@ const Dashboard = () => {
         <div className="admin-page">
             <div className="admin-header">
                 <h1>Panel de Administración</h1>
-                <p> | Bienvenido al panel de control de eFarma</p>
+                <p> | Panel de contro de <CoffeFLower></CoffeFLower></p>
             </div>
 
             <div className="stats-grid">
