@@ -91,7 +91,7 @@ const Register = () => {
         <div className="auth-page">
             <div className="auth-container">
                 <div className="auth-header">
-                    <h1><FaPrescriptionBottleAlt /> eFarma</h1>
+                    <h1><FaPrescriptionBottleAlt /></h1>
                     <p>Crea tu cuenta</p>
                 </div>
 
