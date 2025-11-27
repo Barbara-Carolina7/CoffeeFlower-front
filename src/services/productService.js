@@ -50,7 +50,7 @@ export const addImageToProduct = async (productId, imageUrl) => {
 
 export const getAllProducts = async () => {
     try {
-        const productos = await get('/productos');
+        const productos = await get('/api/productos');
 
         if (!Array.isArray(productos)) {
             console.error('La respuesta no es un array:', productos);
@@ -66,7 +66,7 @@ export const getAllProducts = async () => {
 
 export const getProductById = async (id) => {
     try {
-        const producto = await get(`/productos/${id}`);
+        const producto = await get(`/api/productos/${id}`);
         return mapProductFromBackend(producto);
     } catch (error) {
         console.error(`Error al obtener producto ${id}:`, error);
@@ -114,7 +114,7 @@ export const searchProducts = async (searchTerm) => {
 export const createProduct = async (productData, imageUrl = null) => {
     try {
         const backendProduct = mapProductToBackend(productData);
-        const newProduct = await post('/productos', backendProduct);
+        const newProduct = await post('/api/productos', backendProduct);
 
         if (imageUrl) {
             await addImageToProduct(newProduct.id, imageUrl);
