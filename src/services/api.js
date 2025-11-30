@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-// URL backend
-const API_URL = import.meta.env.VITE_API_URL || 'https://coffeflowerfull.onrender.com';
-const API_TIMEOUT = import.meta.env.VITE_API_TIMEOUT || 3000;
+// URL base del backend (ya incluye /api)
+const API_URL = import.meta.env.VITE_API_URL || 'https://coffeflowerfull.onrender.com/api';
+const API_TIMEOUT = import.meta.env.VITE_API_TIMEOUT || 20000; // 20 segundos para Render
 
-// Crear instancia de axios 
+// Crear instancia de axios
 const api = axios.create({
     baseURL: API_URL,
     timeout: API_TIMEOUT,
@@ -13,25 +13,18 @@ const api = axios.create({
     }
 });
 
+// Interceptor de request
 api.interceptors.request.use(
-    (config) => {
-
-        return config;
-    },
-    (error) => {
-        return Promise.reject(error);
-    }
+    (config) => config,
+    (error) => Promise.reject(error)
 );
 
+// Interceptor de response
 api.interceptors.response.use(
-    (response) => {
-        return response;
-    },
+    (response) => response,
     (error) => {
         if (error.response) {
-            // err
             console.error('Error de respuesta:', error.response.status, error.response.data);
-
             switch (error.response.status) {
                 case 404:
                     console.error('Recurso no encontrado');
@@ -43,17 +36,15 @@ api.interceptors.response.use(
                     console.error('Error en la petición');
             }
         } else if (error.request) {
-            // La petición se hizo pero no hubo respuesta
             console.error('No hay respuesta del servidor');
         } else {
-            // Algo pasó al configurar la petición
             console.error('Error al configurar la petición:', error.message);
         }
-
         return Promise.reject(error);
     }
 );
 
+// Métodos HTTP
 export const get = async (url, config = {}) => {
     try {
         const response = await api.get(url, config);
@@ -63,7 +54,6 @@ export const get = async (url, config = {}) => {
     }
 };
 
-// POST - Crear datos
 export const post = async (url, data, config = {}) => {
     try {
         const response = await api.post(url, data, config);
@@ -73,7 +63,6 @@ export const post = async (url, data, config = {}) => {
     }
 };
 
-// PUT - Actualizar datos (completo)
 export const put = async (url, data, config = {}) => {
     try {
         const response = await api.put(url, data, config);
@@ -83,7 +72,6 @@ export const put = async (url, data, config = {}) => {
     }
 };
 
-// PATCH - Actualizar datos (parcial)
 export const patch = async (url, data, config = {}) => {
     try {
         const response = await api.patch(url, data, config);
@@ -93,7 +81,6 @@ export const patch = async (url, data, config = {}) => {
     }
 };
 
-// DELETE - Eliminar datos
 export const del = async (url, config = {}) => {
     try {
         const response = await api.delete(url, config);
