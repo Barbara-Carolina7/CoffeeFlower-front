@@ -1,291 +1,311 @@
-
-
+/* ======================================= */
+/* PÁGINA PRINCIPAL DEL CARRITO */
+/* ======================================= */
 .cart-page {
-flex: 1;
-background: #f7f0f4; /* Fondo principal muy suave */
-padding: 2rem;
-font-family: 'Segoe UI', sans-serif;
-color: #5c3e44; /* Texto principal en Vino Suave */
+  flex: 1;
+  background: #f7f0f4; /* Fondo principal muy suave */
+  padding: 2rem;
+  font-family: 'Segoe UI', sans-serif;
+  color: #5c3e44; /* Texto principal en Vino Suave */
 }
 
 .cart-container {
-max-width: 1200px;
-margin: 0 auto;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .cart-container h1 {
-color: #8d626e; /* Título en Malva Oscuro */
-margin-bottom: 2rem;
+  color: #8d626e; /* Título en Malva Oscuro */
+  margin-bottom: 2rem;
 }
 
+/* ======================================= */
+/* CARRITO VACÍO */
+/* ======================================= */
 .cart-empty {
-display: flex;
-justify-content: center;
-align-items: center;
-min-height: 60vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
 }
 
 .cart-empty-content {
-text-align: center;
+  text-align: center;
 }
 
 .cart-empty-icon {
-font-size: 5rem;
-display: block;
-margin-bottom: 1rem;
-color: #e799a4; /* Icono en Rosa Malva Principal */
+  font-size: 5rem;
+  display: block;
+  margin-bottom: 1rem;
+  color: #e799a4; /* Icono en Rosa Malva Principal */
 }
 
-.cart-empty-content h2 {
-color: #8d626e;
-margin-bottom: 0.5rem;
-}
-
+.cart-empty-content h2,
 .cart-empty-content p {
-color: #8d626e;
-margin-bottom: 2rem;
+  color: #8d626e;
+  margin-bottom: 0.5rem;
 }
 
+/* ======================================= */
+/* CONTENIDO DEL CARRITO */
+/* ======================================= */
 .cart-content {
-display: grid;
-grid-template-columns: 1fr 400px;
-gap: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 2rem;
 }
 
 .cart-items {
-display: flex;
-flex-direction: column;
-gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
+/* Estilo de cada Artículo en el carrito */
 .cart-item {
-background: #f19ea9; /* Rosa Blush muy suave para los artículos */
-padding: 1.5rem;
-border-radius: 12px;
-box-shadow: 0 4px 12px rgba(180, 140, 150, 0.1); /* Sombra rosada suave */
-display: grid;
-grid-template-columns: 100px 1fr auto auto auto;
-gap: 1.5rem;
-align-items: center;
+  background: #fff0f2; /* Fondo rosado suave */
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 2px solid #f2d7d9; /* Borde rosa claro */
+  display: grid;
+  grid-template-columns: 100px 1fr auto auto auto;
+  gap: 1.5rem;
+  align-items: center;
 }
 
 .cart-item-image {
-width: 100px;
-height: 100px;
-object-fit: cover;
-border-radius: 8px;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
 .cart-item-info h3 {
-font-size: 1.1rem;
-color: #5c3e44;
-margin-bottom: 0.25rem;
+  font-size: 1.1rem;
+  color: #5c3e44;
+  margin-bottom: 0.25rem;
 }
 
 .cart-item-category {
-color: #8d626e;
-font-size: 0.9rem;
+  color: #8d626e;
+  font-size: 0.9rem;
 }
 
 .cart-item-quantity {
-display: flex;
-align-items: center;
-gap: 0.75rem;
-background: #f2d7d9; /* Fondo de cantidad en Rosa Blush Suave */
-padding: 0.5rem;
-border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: #f2d7d9; /* Fondo de cantidad en Rosa Blush Suave */
+  padding: 0.5rem;
+  border-radius: 8px;
 }
 
 .cart-item-quantity button {
-background: #fefafa;
-border: 1px solid #e799a4; /* Borde en Rosa Malva Principal */
-width: 32px;
-height: 32px;
-border-radius: 6px;
-font-size: 1.1rem;
-cursor: pointer;
-color: #8d626e;
-transition: all 0.2s ease;
+  background: #fefafa;
+  border: 1px solid #e799a4; /* Borde rosa */
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: #8d626e;
+  transition: all 0.2s ease;
 }
 
 .cart-item-quantity button:hover {
-background: #e799a4; /* Hover en Rosa Malva Principal */
-color: #fff0f2;
-border-color: #e799a4;
+  background: #e5b4bb; /* Hover en Rosa Malva */
+  color: #fff;
+  border-color: #e799a4;
 }
 
 .cart-item-quantity span {
-min-width: 30px;
-text-align: center;
-font-weight: 600;
-color: #5c3e44;
+  min-width: 30px;
+  text-align: center;
+  font-weight: 600;
+  color: #5c3e44;
 }
 
 .cart-item-price {
-display: flex;
-flex-direction: column;
-align-items: flex-end;
-gap: 0.25rem;
-min-width: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+  min-width: 120px;
 }
 
 .item-unit-price {
-font-size: 0.85rem;
-color: #8d626e;
+  font-size: 0.85rem;
+  color: #8d626e;
 }
 
 .item-total-price {
-font-size: 1.3rem;
-font-weight: 700;
-color: #5c3e44;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #5c3e44;
 }
 
 .cart-item-remove {
-background: #f06292; /* Botón de eliminar en Rosa Fuerte */
-color: #fff0f2;
-border: none;
-width: 36px;
-height: 36px;
-border-radius: 50%;
-font-size: 1.2rem;
-cursor: pointer;
-transition: all 0.2s ease;
+  background: #f06292; /* Rosa fuerte */
+  color: #fff;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
 .cart-item-remove:hover {
-transform: scale(1.1);
-background: #d84370;
+  transform: scale(1.1);
+  background: #d84370;
 }
 
+/* ======================================= */
+/* RESUMEN DEL PEDIDO */
+/* ======================================= */
 .cart-summary {
-background: #fff0f2;
-padding: 1.5rem;
-border-radius: 12px;
-box-shadow: 0 4px 12px rgba(180, 140, 150, 0.1);
-height: fit-content;
-position: sticky;
-top: 2rem;
+  background: #fff0f2;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(180, 140, 150, 0.1);
+  height: fit-content;
+  position: sticky;
+  top: 2rem;
 }
 
 .cart-summary h3 {
-color: #5c3e44;
-margin-bottom: 1.5rem;
+  color: #5c3e44;
+  margin-bottom: 1.5rem;
 }
 
 .summary-row {
-display: flex;
-justify-content: space-between;
-margin-bottom: 1rem;
-color: #8d626e;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  color: #8d626e;
 }
 
 .summary-divider {
-height: 1px;
-background: #f2d7d9; /* Línea divisoria suave */
-margin: 1.5rem 0;
+  height: 1px;
+  background: #f2d7d9;
+  margin: 1.5rem 0;
 }
 
 .summary-total {
-font-size: 1.3rem;
-font-weight: 700;
-color: #5c3e44;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #5c3e44;
 }
 
 .summary-actions {
-display: flex;
-flex-direction: column;
-gap: 1rem;
-margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1.5rem;
 }
 
-/* Botón de Checkout */
+/* ======================================= */
+/* BOTONES DEL RESUMEN DEL CARRITO */
+/* ======================================= */
+
+/* Finalizar Compra / Proceder al Pago */
 .checkout-button {
-    background: linear-gradient(135deg, #e799a4, #f2d7d9);
-    border: none;
-    padding: 1rem;
-    border-radius: 12px;
-    color: #5c3e44;
-    font-weight: 700;
-    font-size: 1.05rem;
-    cursor: pointer;
-    transition: transform 0.3s, box-shadow 0.3s;
+  background: #f06292; /* Rosa fuerte */
+  color: #fff; /* Letras blancas visibles */
+  border: none;
+  padding: 1rem;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 
 .checkout-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(231, 153, 164, 0.3);
+  background: #d84370;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(231, 153, 164, 0.3);
 }
 
+/* Seguir Comprando */
+.button-outline {
+  background: transparent;
+  border: 2px solid #f06292;
+  color: #5c3e44;
+  padding: 1rem;
+  border-radius: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.button-outline:hover {
+  background: #f06292;
+  color: #fff;
+}
+
+/* Vaciar Carrito */
 .clear-cart {
-background: transparent;
-border: none;
-color: #e799a4; /* Enlace en Rosa Malva Principal */
-cursor: pointer;
-padding: 0.5rem;
-transition: color 0.2s ease;
-font-size: 0.9rem;
+  background: transparent;
+  border: none;
+  color: #f06292;
+  cursor: pointer;
+  padding: 0.5rem;
+  font-size: 0.95rem;
+  transition: color 0.2s ease;
 }
 
 .clear-cart:hover {
-color: #f06292; /* Hover en Rosa Fuerte */
+  color: #d84370;
 }
 
-/* Responsive */
+/* ======================================= */
+/* RESPONSIVE */
 @media (max-width: 1024px) {
-.cart-content {
-grid-template-columns: 1fr;
-}
+  .cart-content {
+    grid-template-columns: 1fr;
+  }
 
-
-.cart-summary {
-position: static;
-}
-
-
+  .cart-summary {
+    position: static;
+  }
 }
 
 @media (max-width: 768px) {
-.cart-page {
-padding: 1rem;
-}
+  .cart-page {
+    padding: 1rem;
+  }
 
+  .cart-item {
+    grid-template-columns: 80px 1fr 36px;
+    gap: 1rem;
+    padding: 1rem;
+  }
 
-.cart-item {
+  .cart-item-image {
+    width: 80px;
+    height: 80px;
+  }
 
-grid-template-columns: 80px 1fr 36px; /* Imagen, Info/Precio, Botón eliminar */
-gap: 1rem;
-padding: 1rem;
-}
+  .cart-item-info {
+    grid-column: 2 / 3;
+  }
 
-.cart-item-image {
-width: 80px;
-height: 80px;
-}
+  .cart-item-quantity {
+    grid-column: 1 / 2;
+    width: fit-content;
+  }
 
-.cart-item-info {
+  .cart-item-price {
+    grid-column: 2 / 3;
+    align-items: flex-start;
+    justify-self: end;
+  }
 
-grid-column: 2 / 3; 
-}
-
-.cart-item-quantity {
-
-grid-column: 1 / 2;
-width: fit-content;
-}
-
-.cart-item-price {
-
-grid-column: 2 / 3;
-align-items: flex-start;
-justify-self: end;
-}
-
-.cart-item-remove {
-
-grid-column: 3 / 4;
-grid-row: 1 / 2;
-justify-self: end;
-}
-
-
+  .cart-item-remove {
+    grid-column: 3 / 4;
+    grid-row: 1 / 2;
+    justify-self: end;
+  }
 }

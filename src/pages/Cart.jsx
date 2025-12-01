@@ -11,43 +11,29 @@ const Cart = () => {
     const { isAuthenticated } = useAuth();
     const navigate = useNavigate();
 
-    // disminución de cantidad
     const handleDecrease = (id, currentQuantity) => {
         if (currentQuantity > 1) {
             updateQuantity(id, currentQuantity - 1);
         } else {
-            // Si quantity es 1, preguntar antes de eliminar
             const confirmed = window.confirm('¿Deseas eliminar este producto del carrito?');
-            if (confirmed) {
-                removeFromCart(id);
-            }
+            if (confirmed) removeFromCart(id);
         }
     };
 
-    const handleCheckout = async () => {
+    const handleCheckout = () => {
         if (!isAuthenticated()) {
-            // Redirigir a login si no está autenticado
             alert('Por favor inicia sesión para continuar con la compra');
-            setTimeout(() => {
-                navigate('/login');
-            }, 500);
+            setTimeout(() => navigate('/login'), 500);
         } else {
-            // Simular proceso de pago
             alert('Procediendo al pago...');
-
             setTimeout(() => {
-                alert('¡Compra realizada con éxito! 🎉\n\nTu pedido será enviado pronto.');
-
+                alert('¡Compra realizada con éxito! 🎉\nTu pedido será enviado pronto.');
                 clearCart();
-
-                setTimeout(() => {
-                    navigate('/');
-                }, 500);
+                setTimeout(() => navigate('/'), 500);
             }, 1500);
         }
     };
 
-    // Si el carrito está vacío
     if (cartItems.length === 0) {
         return (
             <div className="cart-empty">
@@ -55,7 +41,7 @@ const Cart = () => {
                     <span className="cart-empty-icon"><FaShoppingCart /></span>
                     <h2>Tu carrito está vacío</h2>
                     <p>Agrega productos para comenzar tu compra</p>
-                    <Button variant="primary" onClick={() => navigate('/productos')}>
+                    <Button variant="primary" className="checkout-button" onClick={() => navigate('/productos')}>
                         Ver Productos
                     </Button>
                 </div>
@@ -69,10 +55,8 @@ const Cart = () => {
                 <h1>Carrito de Compras</h1>
 
                 <div className="cart-content">
-                    {/* Lista de productos */}
                     <div className="cart-items">
                         {cartItems.map(item => {
-                            // Calcular precio con descuento
                             const itemPrice = item.discount
                                 ? item.price * (1 - item.discount / 100)
                                 : item.price;
@@ -88,13 +72,9 @@ const Cart = () => {
                                     </div>
 
                                     <div className="cart-item-quantity">
-                                        <button onClick={() => handleDecrease(item.id, item.quantity)}>
-                                            -
-                                        </button>
+                                        <button onClick={() => handleDecrease(item.id, item.quantity)}>-</button>
                                         <span>{item.quantity}</span>
-                                        <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>
-                                            +
-                                        </button>
+                                        <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
                                     </div>
 
                                     <div className="cart-item-price">
@@ -102,18 +82,12 @@ const Cart = () => {
                                         <span className="item-total-price">${Math.round(itemTotal)}</span>
                                     </div>
 
-                                    <button
-                                        className="cart-item-remove"
-                                        onClick={() => removeFromCart(item.id)}
-                                    >
-                                        ✕
-                                    </button>
+                                    <button className="cart-item-remove" onClick={() => removeFromCart(item.id)}>✕</button>
                                 </div>
                             );
                         })}
                     </div>
 
-                    {/* Resumen del pedido */}
                     <div className="cart-summary">
                         <h3>Resumen del Pedido</h3>
 
@@ -135,12 +109,14 @@ const Cart = () => {
                         </div>
 
                         <div className="summary-actions">
-                            <Button variant="primary" fullWidth onClick={handleCheckout}>
+                            <Button variant="primary" className="checkout-button" fullWidth onClick={handleCheckout}>
                                 {isAuthenticated() ? 'Finalizar Compra' : 'Proceder al Pago'}
                             </Button>
-                            <Button variant="outline" fullWidth onClick={() => navigate('/productos')}>
+
+                            <Button variant="outline" className="button-outline" fullWidth onClick={() => navigate('/productos')}>
                                 Seguir Comprando
                             </Button>
+
                             <button className="clear-cart" onClick={clearCart}>
                                 Vaciar Carrito
                             </button>
