@@ -1,5 +1,5 @@
-import { get, post, put, del } from './api';
-import ImageService from './ImageService';
+import { get, post, put, del } from './api.js';
+import ImageService from './ImageService.js';
 import axios from 'axios';
 
 // --- Helpers internos ---
@@ -21,9 +21,9 @@ const mapProductFromBackend = (producto) => {
     id: producto.id || 0,
     name: producto.nombre || '',
     description: producto.descripcion || '',
-    price: producto.precioBase || 0, // corregido
+    price: producto.precioBase || 0,
     stock: producto.stock || 0,
-    category: producto.categoria?.nombre || 'Sin categoría', // corregido
+    category: producto.categoria?.nombre || 'Sin categoría',
     image: producto.imagenes?.[0]?.url || 'https://via.placeholder.com/300',
     brand: producto.laboratorio?.nombre || '',
     requiresPrescription: producto.requiereReceta || false,
@@ -41,7 +41,7 @@ const mapProductToBackend = (product) => {
   return {
     nombre: product.name,
     descripcion: product.description || '',
-    precioBase: Number(product.price), // corregido
+    precioBase: Number(product.price),
     stock: Number(product.stock),
     requiereReceta: product.requiresPrescription || false,
     categoria: (categoryId && !isNaN(categoryId)) ? { id: categoryId } : null,
