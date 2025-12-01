@@ -39,7 +39,7 @@ const Dashboard = () => {
                 revenue: revenue
             });
         } catch (error) {
-            console.error('Error al cargar estadísticas:', error);
+            console.error('Error al cargar ', error);
         } finally {
             setLoading(false);
         }
@@ -83,7 +83,7 @@ const Dashboard = () => {
                     <h1>Panel de Administración</h1>
                 </div>
                 <div style={{ padding: '2rem', textAlign: 'center' }}>
-                    Cargando estadísticas...
+                    Cargando .....
                 </div>
             </div>
         );

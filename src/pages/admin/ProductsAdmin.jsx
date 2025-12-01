@@ -6,9 +6,7 @@ import Button from '../../components/atoms/Button';
 import productService from '../../services/productService';
 import imageService from '../../services/imageService';
 
-
 import '../../styles/pages/Admin.css';
-
 
 const ProductsAdmin = () => {
     const [products, setProducts] = useState([]);
@@ -50,7 +48,7 @@ const ProductsAdmin = () => {
             label: 'Nombre del Producto',
             type: 'text',
             required: true,
-            placeholder: 'Ej: Paracetamol 500mg'
+            placeholder: 'Ej: cafe moka'
         },
         {
             name: 'categoryId',
@@ -138,7 +136,7 @@ const ProductsAdmin = () => {
         try {
             let imageUrl = editingProduct?.image || '';
 
-            // Si hay una nueva imagen, subirla a ImgBB
+            // Subir nueva imagen si existe
             if (formData.image instanceof File) {
                 try {
                     imageUrl = await imageService.uploadProductImage(formData.image);
@@ -149,7 +147,6 @@ const ProductsAdmin = () => {
                 }
             }
 
-            // Validación estricta de categoría
             if (!formData.categoryId) {
                 alert('La categoría es obligatoria');
                 setIsLoading(false);
@@ -162,29 +159,23 @@ const ProductsAdmin = () => {
                 laboratoryId: formData.laboratoryId ? Number(formData.laboratoryId) : null,
                 price: Number(formData.price),
                 stock: Number(formData.stock),
-                description: formData.description || '',
-                // La imagen se maneja por separado en tu backend
+                description: formData.description || ''
             };
 
-            console.log('Datos a enviar al backend:', productData);
-            console.log('URL de imagen (si existe):', imageUrl);
-
             if (editingProduct) {
-                // Editar producto existente
                 const updatedProduct = await productService.updateProduct(
                     editingProduct.id,
                     productData,
-                    imageUrl  // Pasar URL de imagen si existe
+                    imageUrl
                 );
                 setProducts(products.map(p =>
                     p.id === editingProduct.id ? updatedProduct : p
                 ));
                 alert('Producto actualizado exitosamente');
             } else {
-                // Crear nuevo producto
                 const newProduct = await productService.createProduct(
                     productData,
-                    imageUrl  // Pasar URL de imagen si existe
+                    imageUrl
                 );
                 setProducts([...products, newProduct]);
                 alert('Producto creado exitosamente');
@@ -199,7 +190,6 @@ const ProductsAdmin = () => {
         }
     };
 
-    // Preparar datos para la tabla
     const tableData = products.map(p => [
         p.id,
         p.name,
@@ -224,19 +214,16 @@ const ProductsAdmin = () => {
     return (
         <div className="admin-page">
             <div className="admin-header">
-                <h1>Gestión de Productos</h1>
+                <h1>Gestión de Productos ☕</h1>
                 <Button onClick={handleCreate}>
-                    ➕ Nuevo Producto
+                    🛒 Agregar Producto
                 </Button>
             </div>
 
             <Table
                 columns={['ID', 'Nombre', 'Categoría', 'Precio', 'Stock']}
                 data={tableData}
-                actions={{
-                    edit: handleEdit,
-                    delete: handleDelete
-                }}
+                actions={{ edit: handleEdit, delete: handleDelete }}
             />
 
             <Modal
