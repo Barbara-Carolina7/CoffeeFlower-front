@@ -27,7 +27,7 @@ const Cart = () => {
         } else {
             alert('Procediendo al pago...');
             setTimeout(() => {
-                alert('¡Compra realizada con éxito! 🎉\nTu pedido será enviado pronto.');
+                alert('Muchas gracias por tú compra\nPronto tú pedido estara en tus manos .');
                 clearCart();
                 setTimeout(() => navigate('/'), 500);
             }, 1500);

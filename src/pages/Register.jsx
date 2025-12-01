@@ -105,7 +105,7 @@ const Register = () => {
                             value={formData.nombre}
                             onChange={handleChange}
                             className={errors.nombre ? 'error' : ''}
-                            placeholder="Carlos vera"
+                            placeholder="Jose Perez"
                         />
                         {errors.nombre && (
                             <span className="error-message">{errors.nombre}</span>

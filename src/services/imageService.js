@@ -1,42 +1,24 @@
-import { uploadToImgBB } from '../utils/uploadImage';
+// src/services/imageService.js
+import axios from 'axios';
 
-class ImageService {
+const API_KEY = 'TU_API_KEY_DE_IMGBB'; // Reemplaza con tu clave si usas ImgBB
+const API_URL = `https://api.imgbb.com/1/upload?key=${API_KEY}`;
 
-    async uploadProductImage(file) {
-        try {
-            const result = await uploadToImgBB(file, {
-                maxWidth: 800,
-                maxHeight: 800,
-                quality: 80,
-                maxSizeMB: 5
-            });
-            return result.url;
-        } catch (error) {
-            console.error('Error al subir imagen de producto:', error);
-            throw new Error(error.message || 'No se pudo subir la imagen. Intenta nuevamente.');
-        }
+const imageService = {
+  uploadProductImage: async (file) => {
+    if (!file) return null;
+
+    const formData = new FormData();
+    formData.append('image', file);
+
+    try {
+      const response = await axios.post(API_URL, formData);
+      return response.data.data.url; // Retorna la URL de la imagen subida
+    } catch (error) {
+      console.error('Error al subir imagen:', error);
+      throw new Error('No se pudo subir la imagen');
     }
+  }
+};
 
-
-    async uploadUserAvatar(file) {
-        try {
-            const result = await uploadToImgBB(file, {
-                maxWidth: 400,
-                maxHeight: 400,
-                quality: 85,
-                maxSizeMB: 2
-            });
-            return result.url;
-        } catch (error) {
-            console.error('Error al subir avatar:', error);
-            throw new Error(error.message || 'No se pudo subir el avatar. Intenta nuevamente.');
-        }
-    }
-
-    async deleteImage(imageUrl) {
-        console.warn('Eliminación de imágenes no implementada en ImgBB free tier');
-        return true;
-    }
-}
-
-export default new ImageService();
+export default imageService;
