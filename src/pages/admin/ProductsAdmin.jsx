@@ -38,13 +38,14 @@ const ProductsAdmin = () => {
         }
     };
 
+    // Configuración de campos del formulario
     const formFields = [
         {
             name: 'name',
             label: 'Nombre del Producto',
             type: 'text',
             required: true,
-            placeholder: 'Ej: Cafe Moka'
+            placeholder: 'Ej: cafe moka'
         },
         {
             name: 'categoryId',
@@ -144,7 +145,7 @@ const ProductsAdmin = () => {
                 categoryId: formData.categoryId ? Number(formData.categoryId) : null,
                 price: Number(formData.price),
                 stock: Number(formData.stock),
-                description: formData.description || ''
+                description: formData.description || '',
             };
 
             if (editingProduct) {
@@ -175,13 +176,16 @@ const ProductsAdmin = () => {
         }
     };
 
-    const tableData = products.map(p => [
-        p.id,
-        p.name,
-        p.category,
-        `$${p.price?.toLocaleString() || 0}`,
-        p.stock
-    ]);
+    // Preparar datos para la tabla (ordenados por ID)
+    const tableData = [...products]
+        .sort((a, b) => a.id - b.id)
+        .map(p => [
+            p.id,
+            p.name,
+            p.category,
+            `$${p.price?.toLocaleString() || 0}`,
+            p.stock
+        ]);
 
     if (dataLoading) {
         return (
@@ -217,7 +221,7 @@ const ProductsAdmin = () => {
             <Modal
                 isOpen={isModalOpen}
                 onClose={() => !isLoading && setIsModalOpen(false)}
-                title={editingProduct ? 'Editar Producto' : 'Agregar Producto'}
+                title={editingProduct ? 'Editar Producto' : 'Nuevo Producto'}
                 size="large"
             >
                 <DynamicForm
