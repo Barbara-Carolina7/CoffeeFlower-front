@@ -1,5 +1,5 @@
 import { get, post, put, del } from './api.js';
-import ImageService from './ImageService.js';
+import ImageService from './imageService.js';
 import axios from 'axios';
 
 // --- Helpers internos ---

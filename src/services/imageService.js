@@ -1,12 +1,42 @@
-// ImageService.js
-// Servicio simple para "subir" imágenes de productos
-// Por ahora devuelve una URL de prueba
+import { uploadToImgBB } from '../utils/uploadImage';
 
-export const uploadProductImage = async (file) => {
-  if (!file) return null;
-  // Aquí podrías integrar Cloudinary, S3 u otro servicio real
-  // Por ahora devolvemos la URL de placeholder
-  return 'https://via.placeholder.com/300';
-};
+class ImageService {
 
-export default { uploadProductImage };
+    async uploadProductImage(file) {
+        try {
+            const result = await uploadToImgBB(file, {
+                maxWidth: 800,
+                maxHeight: 800,
+                quality: 80,
+                maxSizeMB: 5
+            });
+            return result.url;
+        } catch (error) {
+            console.error('Error al subir imagen de producto:', error);
+            throw new Error(error.message || 'No se pudo subir la imagen. Intenta nuevamente.');
+        }
+    }
+
+
+    async uploadUserAvatar(file) {
+        try {
+            const result = await uploadToImgBB(file, {
+                maxWidth: 400,
+                maxHeight: 400,
+                quality: 85,
+                maxSizeMB: 2
+            });
+            return result.url;
+        } catch (error) {
+            console.error('Error al subir avatar:', error);
+            throw new Error(error.message || 'No se pudo subir el avatar. Intenta nuevamente.');
+        }
+    }
+
+    async deleteImage(imageUrl) {
+        console.warn('Eliminación de imágenes no implementada en ImgBB free tier');
+        return true;
+    }
+}
+
+export default new ImageService();
