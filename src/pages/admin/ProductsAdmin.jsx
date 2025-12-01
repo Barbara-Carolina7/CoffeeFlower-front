@@ -11,7 +11,6 @@ import '../../styles/pages/Admin.css';
 const ProductsAdmin = () => {
     const [products, setProducts] = useState([]);
     const [categories, setCategories] = useState([]);
-    const [laboratories, setLaboratories] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [editingProduct, setEditingProduct] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
@@ -24,15 +23,13 @@ const ProductsAdmin = () => {
     const loadData = async () => {
         setDataLoading(true);
         try {
-            const [productsData, categoriesData, laboratoriesData] = await Promise.all([
+            const [productsData, categoriesData] = await Promise.all([
                 productService.getAllProducts(),
-                productService.getCategories(),
-                productService.getLaboratories()
+                productService.getCategories()
             ]);
 
             setProducts(productsData);
             setCategories(categoriesData);
-            setLaboratories(laboratoriesData);
         } catch (error) {
             console.error('Error al cargar datos:', error);
             alert('Error al cargar datos del servidor');
@@ -41,14 +38,13 @@ const ProductsAdmin = () => {
         }
     };
 
-    // Configuración de campos del formulario
     const formFields = [
         {
             name: 'name',
             label: 'Nombre del Producto',
             type: 'text',
             required: true,
-            placeholder: 'Ej: cafe moka'
+            placeholder: 'Ej: Cafe Moka'
         },
         {
             name: 'categoryId',
@@ -58,15 +54,6 @@ const ProductsAdmin = () => {
             options: categories.map(cat => ({
                 value: cat.id,
                 label: cat.name
-            }))
-        },
-        {
-            name: 'laboratoryId',
-            label: 'Laboratorio/Marca',
-            type: 'select',
-            options: laboratories.map(lab => ({
-                value: lab.id,
-                label: lab.name
             }))
         },
         {
@@ -136,7 +123,6 @@ const ProductsAdmin = () => {
         try {
             let imageUrl = editingProduct?.image || '';
 
-            // Subir nueva imagen si existe
             if (formData.image instanceof File) {
                 try {
                     imageUrl = await imageService.uploadProductImage(formData.image);
@@ -156,7 +142,6 @@ const ProductsAdmin = () => {
             const productData = {
                 name: formData.name,
                 categoryId: formData.categoryId ? Number(formData.categoryId) : null,
-                laboratoryId: formData.laboratoryId ? Number(formData.laboratoryId) : null,
                 price: Number(formData.price),
                 stock: Number(formData.stock),
                 description: formData.description || ''
@@ -214,7 +199,7 @@ const ProductsAdmin = () => {
     return (
         <div className="admin-page">
             <div className="admin-header">
-                <h1>Gestión de Productos ☕</h1>
+                <h1>Gestión de Productos</h1>
                 <Button onClick={handleCreate}>
                     🛒 Agregar Producto
                 </Button>
@@ -223,13 +208,16 @@ const ProductsAdmin = () => {
             <Table
                 columns={['ID', 'Nombre', 'Categoría', 'Precio', 'Stock']}
                 data={tableData}
-                actions={{ edit: handleEdit, delete: handleDelete }}
+                actions={{
+                    edit: handleEdit,
+                    delete: handleDelete
+                }}
             />
 
             <Modal
                 isOpen={isModalOpen}
                 onClose={() => !isLoading && setIsModalOpen(false)}
-                title={editingProduct ? 'Editar Producto' : 'Nuevo Producto'}
+                title={editingProduct ? 'Editar Producto' : 'Agregar Producto'}
                 size="large"
             >
                 <DynamicForm
