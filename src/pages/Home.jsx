@@ -37,7 +37,7 @@ const handleAddToCart = (product) => {
 const featuredProducts = products.slice(0, 6);
 
 if (loading) {
-    return <div className="loading">Cargando productos...</div>;
+    return <div className="loading">MOSTRANDO NUESTROS PRODUCTOS...</div>;
 }
 
 return (
