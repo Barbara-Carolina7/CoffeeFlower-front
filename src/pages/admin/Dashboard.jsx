@@ -1,5 +1,4 @@
 // pages/admin/Dashboard.jsx
-// Panel principal de administración con estadísticas reales
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaBox, FaUsers, FaClipboardList, FaDollarSign, FaHome } from 'react-icons/fa';
@@ -94,7 +93,8 @@ const Dashboard = () => {
         <div className="admin-page">
             <div className="admin-header">
                 <h1>Panel de Administración</h1>
-                <p> | Panel de contro de <CoffeFLower></CoffeFLower></p>
+                {/* Reemplazado el componente inexistente por texto */}
+                <p>| Panel de control de CoffeeFlower</p>
             </div>
 
             <div className="stats-grid">

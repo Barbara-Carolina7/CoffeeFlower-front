@@ -1,0 +1,110 @@
+[
+  {
+    "id": 1,
+    "nombre": "Espresso",
+    "descripcion": "Café negro fuerte y concentrado",
+    "precioBase": 2000,
+    "stock": 50,
+    "categoria": { "id": 1, "nombre": "Café" },
+    "image": "https://i.ibb.co/cSkXqxb1/expressoo.jpg"
+  },
+  {
+    "id": 2,
+    "nombre": "Latte",
+    "descripcion": "Café con leche espumosa",
+    "precioBase": 2500,
+    "stock": 50,
+    "categoria": { "id": 1, "nombre": "Café" },
+    "image": "https://i.ibb.co/gbjFbzz9/latte.jpg"
+  },
+  {
+    "id": 3,
+    "nombre": "Cappuccino",
+    "descripcion": "Café con leche y espuma cremosa",
+    "precioBase": 2600,
+    "stock": 50,
+    "categoria": { "id": 1, "nombre": "Café" },
+    "image": "https://i.ibb.co/JFMd15n1/capuchino.jpg"
+  },
+  {
+    "id": 4,
+    "nombre": "Té Verde",
+    "descripcion": "Té verde orgánico",
+    "precioBase": 1800,
+    "stock": 50,
+    "categoria": { "id": 2, "nombre": "Infusiones" },
+    "image": "https://i.ibb.co/vv3wd4J8/te-verde.jpg"
+  },
+  {
+    "id": 5,
+    "nombre": "Té Negro",
+    "descripcion": "Té negro intenso",
+    "precioBase": 1800,
+    "stock": 50,
+    "categoria": { "id": 2, "nombre": "Infusiones" },
+    "image": "https://i.ibb.co/Dg9K4B9D/te-negro.jpg"
+  },
+  {
+    "id": 6,
+    "nombre": "Infusión Manzanilla",
+    "descripcion": "Relajante y suave",
+    "precioBase": 1700,
+    "stock": 50,
+    "categoria": { "id": 2, "nombre": "Infusiones" },
+    "image": "https://i.ibb.co/Kpy9qSrv/infusion-manzanilla.webp"
+  },
+  {
+    "id": 7,
+    "nombre": "Brownie",
+    "descripcion": "Brownie de chocolate artesanal",
+    "precioBase": 2500,
+    "stock": 50,
+    "categoria": { "id": 3, "nombre": "Postres" },
+    "image": "https://i.ibb.co/yJ85hGb/brownies.jpg"
+  },
+  {
+    "id": 8,
+    "nombre": "Cheesecake",
+    "descripcion": "Tarta de queso cremosa",
+    "precioBase": 3000,
+    "stock": 50,
+    "categoria": { "id": 3, "nombre": "Postres" },
+    "image": "https://i.ibb.co/qLvjBxgN/Cheesecake.webp"
+  },
+  {
+    "id": 9,
+    "nombre": "Galletas",
+    "descripcion": "Galletas caseras variadas",
+    "precioBase": 1500,
+    "stock": 50,
+    "categoria": { "id": 3, "nombre": "Postres" },
+    "image": "https://i.ibb.co/4wFK03Tk/galleta-chocolate.jpg"
+  },
+  {
+    "id": 10,
+    "nombre": "Taza Café",
+    "descripcion": "Taza de cerámica para café",
+    "precioBase": 1200,
+    "stock": 50,
+    "categoria": { "id": 4, "nombre": "Accesorios" },
+    "image": "https://i.ibb.co/N28gccXB/Taza-Caf.jpg"
+  },
+  {
+    "id": 11,
+    "nombre": "Cafetera",
+    "descripcion": "Cafetera de prensa francesa",
+    "precioBase": 4500,
+    "stock": 20,
+    "categoria": { "id": 4, "nombre": "Accesorios" },
+    "image": "https://i.ibb.co/d43K9KrT/Cafetera.jpg"
+  },
+  {
+    "id": 12,
+    "nombre": "Termo",
+    "descripcion": "Termo para llevar bebidas calientes",
+    "precioBase": 3000,
+    "stock": 30,
+    "categoria": { "id": 4, "nombre": "Accesorios" },
+    "image": "https://i.ibb.co/TMFprddR/termo.jpg"
+  }
+]

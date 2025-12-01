@@ -1,137 +1,162 @@
-
+/* Página de productos */
 .products-page {
-flex: 1;
-background: #f7f0f0; /* Fondo Rosa Ultra Suave */
-padding: 2rem;
-font-family: 'Segoe UI', sans-serif;
-color: #5c3e44; /* Texto principal en Vino Suave */
+  flex: 1;
+  background: #f7f0f0; /* Fondo Rosa Ultra Suave */
+  padding: 2rem;
+  font-family: 'Segoe UI', sans-serif;
+  color: #5c3e44; /* Texto principal en Vino Suave */
+  box-sizing: border-box;
 }
 
+/* Contenedor principal: sidebar + productos */
 .products-container {
-max-width: 1400px;
-margin: 0 auto;
-display: grid;
-grid-template-columns: 250px 1fr;
-gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr; /* Por defecto: sidebar arriba, productos abajo */
+  gap: 2rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
+/* Sidebar de filtros */
 .filters-sidebar {
-background: #fff0f2; /* Fondo Rosa Blush muy suave */
-padding: 1.5rem;
-border-radius: 12px;
-/* Sombra sutil en tonos rosados */
-box-shadow: 0 4px 12px rgba(220, 150, 160, 0.15); 
-height: fit-content;
-position: sticky;
-top: 2rem;
+  background: #fff0f2; /* Fondo Rosa Blush muy suave */
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(220, 150, 160, 0.15);
+  height: fit-content;
 }
 
 .filters-sidebar h3 {
-margin-bottom: 1rem;
-color: #8d626e; /* Título de filtro en Malva Oscuro */
+  margin-bottom: 1rem;
+  color: #8d626e; /* Título de filtro en Malva Oscuro */
 }
 
 .category-filters {
-display: flex;
-flex-direction: column;
-gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
 .filter-button {
-padding: 0.75rem 1rem;
-border: none;
-background: transparent;
-text-align: left;
-border-radius: 8px;
-transition: all 0.2s ease;
-cursor: pointer;
-color: #8d626e; /* Texto de filtro en Malva Oscuro */
-font-weight: 500;
+  padding: 0.75rem 1rem;
+  border: none;
+  background: transparent;
+  text-align: left;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  color: #8d626e;
+  font-weight: 500;
 }
 
 .filter-button:hover {
-background: #f2d7d9; /* Hover en Rosa Blush Suave */
-color: #5c3e44;
+  background: #f2d7d9;
+  color: #5c3e44;
 }
 
 .filter-button.active {
-background: #e799a4; /* Botón activo en Rosa Malva Principal */
-color: #fff0f2; /* Letras claras para contraste */
-font-weight: 600;
+  background: #e799a4;
+  color: #fff0f2;
+  font-weight: 600;
 }
 
+/* Contenedor de productos */
 .products-main {
-flex: 1;
+  flex: 1;
 }
 
 .products-header {
-margin-bottom: 2rem;
+  margin-bottom: 2rem;
 }
 
 .products-header h1 {
-color: #5c3e44;
-margin-bottom: 0.5rem;
+  color: #5c3e44;
+  margin-bottom: 0.5rem;
 }
 
 .products-count {
-color: #8d626e;
-font-size: 0.95rem;
+  color: #8d626e;
+  font-size: 0.95rem;
 }
 
+/* GRID de productos: apilados hacia abajo en móviles y tablets */
 .product-grid {
-display: grid;
-grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-gap: 1.5rem;
+  display: grid;
+  grid-template-columns: 1fr; /* Una columna por defecto */
+  gap: 1.5rem;
+  overflow-x: hidden;
 }
 
-.no-products {
-text-align: center;
-padding: 4rem 2rem;
-color: #8d626e;
+/* Botón agregar al carrito */
+.add-to-cart-button {
+  background-color: #e799a4;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
+.add-to-cart-button:hover {
+  background-color: #d46e7a;
+}
+
+/* Mensajes de carga o sin productos */
+.no-products,
 .loading {
-text-align: center;
-padding: 4rem 2rem;
-font-size: 1.2rem;
-color: #e799a4; /* Texto de carga en Rosa Malva Principal */
+  text-align: center;
+  padding: 4rem 2rem;
+  color: #8d626e;
+  font-size: 1.2rem;
 }
 
-/* Responsive */
-@media (max-width: 1024px) {
-.products-container {
-grid-template-columns: 1fr;
-}
+/* Responsive: Tablets y laptops */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .products-container {
+    grid-template-columns: 1fr; /* Sidebar arriba, productos abajo */
+    gap: 1rem;
+  }
 
+  .category-filters {
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 0.5rem 0;
+    justify-content: center;
+    gap: 0.5rem;
+  }
 
-.filters-sidebar {
-position: static;
-}
-
-.category-filters {
-flex-direction: row;
-flex-wrap: wrap;
-    padding: 0.5rem 0; /* Agregado para espacio interno */
-}
-/* Aseguramos que los botones se adapten al espacio en móvil */
-.filter-button {
+  .filter-button {
     flex-grow: 1;
     text-align: center;
+  }
+
+  .product-grid {
+    grid-template-columns: 1fr; /* Mantener productos apilados verticalmente */
+  }
 }
 
+/* Responsive: Pantallas grandes (2 columnas de productos) */
+@media (min-width: 1025px) {
+  .products-container {
+    grid-template-columns: 1fr 3fr; /* Sidebar a la izquierda, productos a la derecha */
+  }
 
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columnas de productos */
+  }
 }
 
+/* Responsive: Móviles */
 @media (max-width: 768px) {
-.products-page {
-padding: 1rem;
-}
+  .products-page {
+    padding: 1rem;
+  }
 
-
-.product-grid {
-grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-gap: 1rem;
-}
-
-
+  .product-grid {
+    grid-template-columns: 1fr; /* Una columna: productos apilados hacia abajo */
+    gap: 1rem;
+  }
 }

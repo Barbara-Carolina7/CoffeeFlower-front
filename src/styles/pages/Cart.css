@@ -2,7 +2,7 @@
 
 .cart-page {
 flex: 1;
-background: #f7f0f0; /* Fondo principal muy suave */
+background: #f7f0f4; /* Fondo principal muy suave */
 padding: 2rem;
 font-family: 'Segoe UI', sans-serif;
 color: #5c3e44; /* Texto principal en Vino Suave */
@@ -59,7 +59,7 @@ gap: 1rem;
 }
 
 .cart-item {
-background: #fff0f2; /* Rosa Blush muy suave para los artículos */
+background: #f19ea9; /* Rosa Blush muy suave para los artículos */
 padding: 1.5rem;
 border-radius: 12px;
 box-shadow: 0 4px 12px rgba(180, 140, 150, 0.1); /* Sombra rosada suave */

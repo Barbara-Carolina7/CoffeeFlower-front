@@ -21,9 +21,9 @@ const mapProductFromBackend = (producto) => {
     id: producto.id || 0,
     name: producto.nombre || '',
     description: producto.descripcion || '',
-    price: producto.precio || 0,
+    price: producto.precioBase || 0, // corregido
     stock: producto.stock || 0,
-    category: producto.categoria?.nombreCategoria || 'Sin categoría',
+    category: producto.categoria?.nombre || 'Sin categoría', // corregido
     image: producto.imagenes?.[0]?.url || 'https://via.placeholder.com/300',
     brand: producto.laboratorio?.nombre || '',
     requiresPrescription: producto.requiereReceta || false,
@@ -41,7 +41,7 @@ const mapProductToBackend = (product) => {
   return {
     nombre: product.name,
     descripcion: product.description || '',
-    precio: Number(product.price),
+    precioBase: Number(product.price), // corregido
     stock: Number(product.stock),
     requiereReceta: product.requiresPrescription || false,
     categoria: (categoryId && !isNaN(categoryId)) ? { id: categoryId } : null,
@@ -116,7 +116,7 @@ export const getProductById = async (id) => {
 
 export const getCategories = async () => {
   const categorias = await getNoApi('/categorias');
-  return categorias.map(cat => ({ id: cat.id, name: cat.nombreCategoria }));
+  return categorias.map(cat => ({ id: cat.id, name: cat.nombre }));
 };
 
 export const getLaboratories = async () => {
