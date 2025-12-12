@@ -11,6 +11,7 @@ const ProductCard = ({ product, onAddToCart }) => {
 
   // Obtener imagen según nombre del producto
   const imageKeyMap = {
+    Moka:"moka",
     Espresso: "espresso",
     Latte: "latte",
     Cappuccino: "capuchino",

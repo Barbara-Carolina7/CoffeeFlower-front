@@ -1,4 +1,5 @@
 export const productImages = {
+  moka:"https://i.ibb.co/BKrZWs8n/mokachino-1.jpg",
   espresso: "https://i.ibb.co/cSkXqxb1/expressoo.jpg",
   latte: "https://i.ibb.co/gbjFbzz9/latte.jpg",
   capuchino: "https://i.ibb.co/JFMd15n1/capuchino.jpg",
