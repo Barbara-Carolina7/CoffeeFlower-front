@@ -3,6 +3,7 @@ import { get, post, put, del } from './api';
 import imageService from './imageService';
 import axios from 'axios';
 
+// Para hacer requests directos sin usar ./api
 const getNoApi = async (url) => {
   try {
     const response = await axios.get(`https://coffeflowerfull.onrender.com${url}`);
@@ -12,6 +13,7 @@ const getNoApi = async (url) => {
   }
 };
 
+// Mapear producto desde backend a frontend
 const mapProductFromBackend = (producto) => ({
   id: producto.id || 0,
   name: producto.nombre || '',
@@ -24,9 +26,16 @@ const mapProductFromBackend = (producto) => ({
   requiresPrescription: producto.requiereReceta || false,
   categoryId: producto.categoria?.id || null,
   laboratoryId: producto.laboratorio?.id || null,
-  fabricationType: producto.tipoFabricacion?.nombre || ''
+  fabricationType: producto.tipoFabricacion?.nombre || '',
+
+  // ✅ Arrays de opciones para selects
+  milkTypes: producto.tiposLeche || [],
+  grainTypes: producto.tiposGrano || [],
+  sizes: producto.tamanos || [],
+  temperatures: producto.temperaturas || []
 });
 
+// Mapear producto de frontend a backend
 const mapProductToBackend = (product) => ({
   nombre: product.name,
   descripcion: product.description || '',
@@ -38,6 +47,7 @@ const mapProductToBackend = (product) => ({
   imagenes: []
 });
 
+// Agregar imagen a producto
 const addImageToProduct = async (productId, imageUrl) => {
   if (!imageUrl) return false;
   try {

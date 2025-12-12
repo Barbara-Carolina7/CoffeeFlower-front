@@ -5,6 +5,7 @@ import Button from '../components/atoms/Button';
 import { useAuth } from '../context/AuthContext';
 import { FaShoppingCart } from 'react-icons/fa';
 import '../styles/pages/Cart.css';
+import { productImages } from "../assets/productImages";
 
 const Cart = () => {
     const { cartItems, removeFromCart, updateQuantity, getTotalPrice, clearCart } = useCart();
@@ -27,7 +28,7 @@ const Cart = () => {
         } else {
             alert('Procediendo al pago...');
             setTimeout(() => {
-                alert('Muchas gracias por tú compra\nPronto tú pedido estara en tus manos .');
+                alert('Muchas gracias por tu compra\nPronto tu pedido estará en tus manos.');
                 clearCart();
                 setTimeout(() => navigate('/'), 500);
             }, 1500);
@@ -62,9 +63,13 @@ const Cart = () => {
                                 : item.price;
                             const itemTotal = itemPrice * item.quantity;
 
+                            // Obtener imagen del producto desde productImages
+                            const imageSrc = productImages[item.name.toLowerCase().replace(/ /g, '')] 
+                                || 'https://via.placeholder.com/280x280?text=Sin+Imagen';
+
                             return (
                                 <div key={item.id} className="cart-item">
-                                    <img src={item.image} alt={item.name} className="cart-item-image" />
+                                    <img src={imageSrc} alt={item.name} className="cart-item-image" />
 
                                     <div className="cart-item-info">
                                         <h3>{item.name}</h3>
