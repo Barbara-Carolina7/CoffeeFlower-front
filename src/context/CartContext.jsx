@@ -1,11 +1,7 @@
-// context/CartContext.jsx
-// Contexto para manejar el estado del carrito de compras de forma simple
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-// Crear el contexto
 const CartContext = createContext();
 
-// Hook personalizado para usar el carrito
 export const useCart = () => {
     const context = useContext(CartContext);
     if (!context) {
@@ -14,12 +10,9 @@ export const useCart = () => {
     return context;
 };
 
-// Provider del carrito
 export const CartProvider = ({ children }) => {
-    // Estado del carrito
     const [cartItems, setCartItems] = useState([]);
 
-    // carrito desde localStorage
     useEffect(() => {
         const savedCart = localStorage.getItem('CoffeFlower-cart');
         if (savedCart) {
@@ -27,62 +20,62 @@ export const CartProvider = ({ children }) => {
         }
     }, []);
 
-    // Guardar carrito en localStorage cuando cambie
     useEffect(() => {
         localStorage.setItem('CoffeFlower-cart', JSON.stringify(cartItems));
     }, [cartItems]);
 
-    // Agregar producto al carrito
-    const addToCart = (product) => {
+    // AGREGAR PRODUCTO (Modificado para personalización)
+    const addToCart = (product, personalizacion = {}) => {
         setCartItems(prevItems => {
-            // Verificar si el producto ya está en el carrito
-            const existingItem = prevItems.find(item => item.id === product.id);
+            // Creamos un identificador único que incluya las opciones elegidas
+            // Esto evita que un café con leche de almendras se sume a uno con leche entera
+            const cartItemId = `${product.id}-${personalizacion.leche || ''}-${personalizacion.endulzante || ''}-${personalizacion.extra || ''}`;
+
+            const existingItem = prevItems.find(item => item.cartItemId === cartItemId);
 
             if (existingItem) {
-                // Si ya existe, aumentar la cantidad
                 return prevItems.map(item =>
-                    item.id === product.id
+                    item.cartItemId === cartItemId
                         ? { ...item, quantity: item.quantity + 1 }
                         : item
                 );
             } else {
-                return [...prevItems, { ...product, quantity: 1 }];
+                return [...prevItems, { 
+                    ...product, 
+                    cartItemId, // ID único para el carrito
+                    lecheSeleccionada: personalizacion.leche || null,
+                    endulzanteSeleccionado: personalizacion.endulzante || null,
+                    extraSeleccionado: personalizacion.extra || null,
+                    quantity: 1 
+                }];
             }
         });
     };
 
-    // Eliminar producto
-    const removeFromCart = (productId) => {
-        setCartItems(prevItems => prevItems.filter(item => item.id !== productId));
+    // Eliminar producto (Usando el nuevo cartItemId)
+    const removeFromCart = (cartItemId) => {
+        setCartItems(prevItems => prevItems.filter(item => item.cartItemId !== cartItemId));
     };
 
-    // Actualizar cantidad
-    const updateQuantity = (productId, newQuantity) => {
+    // Actualizar cantidad (Usando el nuevo cartItemId)
+    const updateQuantity = (cartItemId, newQuantity) => {
         if (newQuantity <= 0) {
-            removeFromCart(productId);
+            removeFromCart(cartItemId);
             return;
         }
-
         setCartItems(prevItems =>
             prevItems.map(item =>
-                item.id === productId
+                item.cartItemId === cartItemId
                     ? { ...item, quantity: newQuantity }
                     : item
             )
         );
     };
 
-    // Vaciar todo el carrito
-    const clearCart = () => {
-        setCartItems([]);
-    };
+    const clearCart = () => setCartItems([]);
 
-    // Calcular el total de items en el carrito
-    const getTotalItems = () => {
-        return cartItems.reduce((total, item) => total + item.quantity, 0);
-    };
+    const getTotalItems = () => cartItems.reduce((total, item) => total + item.quantity, 0);
 
-    // Calcular el precio total
     const getTotalPrice = () => {
         return cartItems.reduce((total, item) => {
             const price = item.discount

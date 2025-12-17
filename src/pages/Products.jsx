@@ -1,3 +1,5 @@
+// src/pages/Products.jsx
+
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import ProductCard from '../components/atoms/ProductCard';
@@ -31,6 +33,7 @@ const Products = () => {
         loadCategories();
     }, []);
 
+    // Detectar parámetro de categoría en URL
     useEffect(() => {
         if (categoryParam) {
             setSelectedCategory(categoryParam);
@@ -53,17 +56,16 @@ const Products = () => {
         loadProducts();
     }, []);
 
+    // Filtrar productos por categoría y búsqueda
     useEffect(() => {
         let filtered = products;
 
-        // Filtrar por categoría
         if (selectedCategory !== 'Todas') {
             filtered = filtered.filter(p =>
                 p.category.toLowerCase() === selectedCategory.toLowerCase()
             );
         }
 
-        // Filtrar por término de búsqueda
         if (searchTerm.trim() !== '') {
             filtered = filtered.filter(product =>
                 product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
