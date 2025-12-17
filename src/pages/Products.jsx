@@ -1,3 +1,4 @@
+// src/pages/Products.jsx
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import ProductCard from '../components/atoms/ProductCard';
@@ -9,21 +10,22 @@ const Products = () => {
   const [searchParams] = useSearchParams();
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const [categories, setCategories] = useState(['Todas']);
+  const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState('Todas');
   const [loading, setLoading] = useState(true);
 
   const { addToCart } = useCart();
+
   const categoryParam = searchParams.get('categoria');
   const searchTerm = searchParams.get('buscar') || '';
 
   /* =============================
-     CARGAR CATEGORÍAS REALES
-  ============================== */
+     CARGAR CATEGORÍAS
+  ============================= */
   useEffect(() => {
     const loadCategories = async () => {
       try {
-        const data = await getCategories(); // Solo categorías reales desde backend
+        const data = await getCategories();
         setCategories(['Todas', ...data.map(c => c.name)]);
       } catch (error) {
         console.error('Error al cargar categorías:', error);
@@ -33,8 +35,8 @@ const Products = () => {
   }, []);
 
   /* =============================
-     DETECTAR CATEGORÍA DESDE URL
-  ============================== */
+     DETECTAR CATEGORÍA URL
+  ============================= */
   useEffect(() => {
     if (categoryParam) {
       setSelectedCategory(categoryParam);
@@ -43,7 +45,7 @@ const Products = () => {
 
   /* =============================
      CARGAR PRODUCTOS
-  ============================== */
+  ============================= */
   useEffect(() => {
     const loadProducts = async () => {
       setLoading(true);
@@ -61,22 +63,21 @@ const Products = () => {
 
   /* =============================
      FILTRAR PRODUCTOS
-  ============================== */
+  ============================= */
   useEffect(() => {
     let filtered = products;
 
     if (selectedCategory !== 'Todas') {
       filtered = filtered.filter(
-        p => p.category.toLowerCase() === selectedCategory.toLowerCase()
+        p => p.category && p.category.toLowerCase() === selectedCategory.toLowerCase()
       );
     }
 
     if (searchTerm.trim()) {
       filtered = filtered.filter(p =>
         p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        p.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        (p.description &&
-          p.description.toLowerCase().includes(searchTerm.toLowerCase()))
+        p.category?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (p.description && p.description.toLowerCase().includes(searchTerm.toLowerCase()))
       );
     }
 
@@ -84,15 +85,19 @@ const Products = () => {
   }, [products, selectedCategory, searchTerm]);
 
   /* =============================
-     AGREGAR PRODUCTO AL CARRITO
-  ============================== */
+     AGREGAR AL CARRITO
+  ============================= */
   const handleAddToCart = (product) => {
-    addToCart(product);
+    addToCart({
+      ...product,
+      image: product.image
+    });
   };
 
   return (
     <div className="products-page">
       <div className="products-container">
+
         {/* SIDEBAR */}
         <aside className="filters-sidebar">
           <h3>Categorías</h3>
@@ -109,7 +114,7 @@ const Products = () => {
           </div>
         </aside>
 
-        {/* LISTADO DE PRODUCTOS */}
+        {/* LISTADO */}
         <main className="products-main">
           <div className="products-header">
             <h1>
@@ -121,8 +126,7 @@ const Products = () => {
             </h1>
 
             <p className="products-count">
-              {filteredProducts.length} producto
-              {filteredProducts.length !== 1 ? 's' : ''}
+              {filteredProducts.length} producto{filteredProducts.length !== 1 ? 's' : ''}
             </p>
           </div>
 
@@ -135,6 +139,7 @@ const Products = () => {
                   key={product.id}
                   product={product}
                   onAddToCart={handleAddToCart}
+                  showOptions // <- Nueva prop para mostrar opciones dentro de la tarjeta
                 />
               ))}
             </div>
