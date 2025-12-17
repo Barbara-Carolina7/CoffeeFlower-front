@@ -4,10 +4,13 @@ import '../../styles/atoms/ProductCard.css';
 import { productImages } from '../../assets/productImages';
 
 const ProductCard = ({ product, onAddToCart }) => {
+  // Precio base
+  const basePrice = product.price;
   const finalPrice = product.discount
-    ? Math.round(product.price * (1 - product.discount / 100))
-    : product.price;
+    ? Math.round(basePrice * (1 - product.discount / 100))
+    : basePrice;
 
+  // Mapear nombre del producto a imagen
   const imageKeyMap = {
     Moka:"moka",
     Espresso: "espresso",
@@ -27,28 +30,32 @@ const ProductCard = ({ product, onAddToCart }) => {
   const imageKey = imageKeyMap[product.name] || "sinimagen";
   const imageSrc = productImages[imageKey] || 'https://via.placeholder.com/280x280?text=Sin+Imagen';
 
-  // Determinar si el producto requiere opciones (solo cafés e infusiones)
+  // Determinar si requiere opciones (cafés e infusiones)
   const requiereOpciones = ['Café', 'Infusión', 'Té'].some(tipo => product.category?.includes(tipo));
 
   const [selectedOptions, setSelectedOptions] = useState({
     milk: product.milkTypes?.[0]?.nombre || '',
     grain: product.grainTypes?.[0]?.nombre || '',
     size: product.sizes?.[0]?.nombre || '',
-    temperature: product.temperatures?.[0]?.nombre || ''
+    temperature: product.temperatures?.[0]?.nombre || '',
+    sweetener: product.sweeteners?.[0]?.nombre || ''
   });
 
   const handleOptionChange = (optionName, value) => {
-    setSelectedOptions(prev => ({
-      ...prev,
-      [optionName]: value
-    }));
+    setSelectedOptions(prev => ({ ...prev, [optionName]: value }));
   };
 
+  // Calcular precio adicional por tamaño
+  const sizeExtra = product.sizes?.find(s => s.nombre === selectedOptions.size)?.costoExtra || 0;
+  const displayedPrice = finalPrice + sizeExtra;
+
+  // Validación para habilitar botón agregar
   const isAddToCartDisabled = requiereOpciones && (
     (product.milkTypes?.length > 0 && !selectedOptions.milk) ||
     (product.grainTypes?.length > 0 && !selectedOptions.grain) ||
     (product.sizes?.length > 0 && !selectedOptions.size) ||
-    (product.temperatures?.length > 0 && !selectedOptions.temperature)
+    (product.temperatures?.length > 0 && !selectedOptions.temperature) ||
+    (product.sweeteners?.length > 0 && !selectedOptions.sweetener)
   );
 
   return (
@@ -64,10 +71,10 @@ const ProductCard = ({ product, onAddToCart }) => {
         <h3 className="product-name">{product.name}</h3>
 
         <div className="product-pricing">
-          {product.discount > 0 && <span className="price-original">${product?.price?.toLocaleString()}</span>}
+          {product.discount > 0 && <span className="price-original">${basePrice.toLocaleString()}</span>}
           <div className="price-main">
             <span className="price-currency">$</span>
-            <span className="price-value">{finalPrice?.toLocaleString()}</span>
+            <span className="price-value">{displayedPrice.toLocaleString()}</span>
           </div>
         </div>
 
@@ -100,7 +107,9 @@ const ProductCard = ({ product, onAddToCart }) => {
                 <label>Tamaño:</label>
                 <select value={selectedOptions.size} onChange={(e) => handleOptionChange('size', e.target.value)}>
                   {product.sizes.map(size => (
-                    <option key={size.id} value={size.nombre}>{size.nombre}</option>
+                    <option key={size.id} value={size.nombre}>
+                      {size.nombre} {size.costoExtra ? `(+$${size.costoExtra})` : ''}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -116,13 +125,24 @@ const ProductCard = ({ product, onAddToCart }) => {
                 </select>
               </div>
             )}
+
+            {product.sweeteners?.length > 0 && (
+              <div className="product-option">
+                <label>Endulzante:</label>
+                <select value={selectedOptions.sweetener} onChange={(e) => handleOptionChange('sweetener', e.target.value)}>
+                  {product.sweeteners.map(s => (
+                    <option key={s.id} value={s.nombre}>{s.nombre}</option>
+                  ))}
+                </select>
+              </div>
+            )}
           </>
         )}
 
         <Button
           variant="primary"
           fullWidth
-          onClick={() => onAddToCart({ ...product, selectedOptions })}
+          onClick={() => onAddToCart({ ...product, selectedOptions, price: displayedPrice })}
           disabled={isAddToCartDisabled}
         >
           Agregar al Carrito
