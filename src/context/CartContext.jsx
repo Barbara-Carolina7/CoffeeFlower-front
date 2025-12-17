@@ -2,37 +2,38 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const CartContext = createContext();
 
-export const useCart = () => {
-  const context = useContext(CartContext);
-  if (!context) {
-    throw new Error('useCart debe usarse dentro de un CartProvider');
-  }
-  return context;
-};
+export const useCart = () => useContext(CartContext);
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
+  /* ===============================
+     CARGAR / GUARDAR CARRITO
+  =============================== */
   useEffect(() => {
-    const savedCart = localStorage.getItem('CoffeFlower-cart');
-    if (savedCart) {
-      setCartItems(JSON.parse(savedCart));
+    const saved = localStorage.getItem('CoffeeFlower-cart');
+    if (saved) {
+      setCartItems(JSON.parse(saved));
     }
   }, []);
 
   useEffect(() => {
-    localStorage.setItem('CoffeFlower-cart', JSON.stringify(cartItems));
+    localStorage.setItem('CoffeeFlower-cart', JSON.stringify(cartItems));
   }, [cartItems]);
 
+  /* ===============================
+     AGREGAR AL CARRITO
+  =============================== */
   const addToCart = (product) => {
     setCartItems(prev => {
-      const id = `${product.id}-${JSON.stringify(product.opciones)}`;
+      const optionsKey = JSON.stringify(product.options || {});
+      const cartItemId = `${product.id}-${optionsKey}`;
 
-      const existente = prev.find(item => item.cartItemId === id);
+      const exists = prev.find(item => item.cartItemId === cartItemId);
 
-      if (existente) {
+      if (exists) {
         return prev.map(item =>
-          item.cartItemId === id
+          item.cartItemId === cartItemId
             ? { ...item, quantity: item.quantity + 1 }
             : item
         );
@@ -42,13 +43,16 @@ export const CartProvider = ({ children }) => {
         ...prev,
         {
           ...product,
-          cartItemId: id,
+          cartItemId,
           quantity: 1
         }
       ];
     });
   };
 
+  /* ===============================
+     CONTROLES
+  =============================== */
   const removeFromCart = (cartItemId) => {
     setCartItems(prev => prev.filter(i => i.cartItemId !== cartItemId));
   };
@@ -70,11 +74,11 @@ export const CartProvider = ({ children }) => {
 
   const clearCart = () => setCartItems([]);
 
+  /* ===============================
+     🔥 ESTO ARREGLA EL HEADER
+  =============================== */
   const getTotalItems = () =>
-    cartItems.reduce((t, i) => t + i.quantity, 0);
-
-  const getTotalPrice = () =>
-    cartItems.reduce((t, i) => t + (i.precioFinal * i.quantity), 0);
+    cartItems.reduce((total, item) => total + item.quantity, 0);
 
   return (
     <CartContext.Provider value={{
@@ -83,8 +87,7 @@ export const CartProvider = ({ children }) => {
       removeFromCart,
       updateQuantity,
       clearCart,
-      getTotalItems,
-      getTotalPrice
+      getTotalItems
     }}>
       {children}
     </CartContext.Provider>

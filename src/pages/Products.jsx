@@ -1,5 +1,4 @@
 // src/pages/Products.jsx
-
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import ProductCard from '../components/atoms/ProductCard';
@@ -8,137 +7,154 @@ import { useCart } from '../context/CartContext';
 import '../styles/pages/Products.css';
 
 const Products = () => {
-    const [searchParams] = useSearchParams();
-    const [products, setProducts] = useState([]);
-    const [filteredProducts, setFilteredProducts] = useState([]);
-    const [categories, setCategories] = useState(['Todas']); // Empieza con "Todas"
-    const [selectedCategory, setSelectedCategory] = useState('Todas');
-    const [loading, setLoading] = useState(true);
-    const { addToCart } = useCart();
+  const [searchParams] = useSearchParams();
+  const [products, setProducts] = useState([]);
+  const [filteredProducts, setFilteredProducts] = useState([]);
+  const [categories, setCategories] = useState(['Todas']);
+  const [selectedCategory, setSelectedCategory] = useState('Todas');
+  const [loading, setLoading] = useState(true);
 
-    const categoryParam = searchParams.get('categoria');
-    const searchTerm = searchParams.get('buscar') || '';
+  const { addToCart } = useCart();
 
-    // Cargar categorías desde la API
-    useEffect(() => {
-        const loadCategories = async () => {
-            try {
-                const categoriesData = await getCategories();
-                const categoryNames = ['Todas', ...categoriesData.map(cat => cat.name)];
-                setCategories(categoryNames);
-            } catch (error) {
-                console.error('Error al cargar categorías:', error);
-            }
-        };
-        loadCategories();
-    }, []);
+  const categoryParam = searchParams.get('categoria');
+  const searchTerm = searchParams.get('buscar') || '';
 
-    // Detectar parámetro de categoría en URL
-    useEffect(() => {
-        if (categoryParam) {
-            setSelectedCategory(categoryParam);
-        }
-    }, [categoryParam]);
-
-    // Cargar productos desde la API
-    useEffect(() => {
-        const loadProducts = async () => {
-            setLoading(true);
-            try {
-                const data = await getAllProducts();
-                setProducts(data);
-            } catch (error) {
-                console.error('Error al cargar productos:', error);
-            } finally {
-                setLoading(false);
-            }
-        };
-        loadProducts();
-    }, []);
-
-    // Filtrar productos por categoría y búsqueda
-    useEffect(() => {
-        let filtered = products;
-
-        if (selectedCategory !== 'Todas') {
-            filtered = filtered.filter(p =>
-                p.category.toLowerCase() === selectedCategory.toLowerCase()
-            );
-        }
-
-        if (searchTerm.trim() !== '') {
-            filtered = filtered.filter(product =>
-                product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                product.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                (product.description && product.description.toLowerCase().includes(searchTerm.toLowerCase()))
-            );
-        }
-
-        setFilteredProducts(filtered);
-    }, [products, selectedCategory, searchTerm]);
-
-    const handleAddToCart = (product) => {
-        addToCart(product);
+  /* =============================
+     CARGAR CATEGORÍAS
+  ============================== */
+  useEffect(() => {
+    const loadCategories = async () => {
+      try {
+        const data = await getCategories();
+        setCategories(['Todas', ...data.map(c => c.name)]);
+      } catch (error) {
+        console.error('Error al cargar categorías:', error);
+      }
     };
+    loadCategories();
+  }, []);
 
-    const handleCategoryChange = (category) => {
-        setSelectedCategory(category);
+  /* =============================
+     DETECTAR CATEGORÍA URL
+  ============================== */
+  useEffect(() => {
+    if (categoryParam) {
+      setSelectedCategory(categoryParam);
+    }
+  }, [categoryParam]);
+
+  /* =============================
+     CARGAR PRODUCTOS
+  ============================== */
+  useEffect(() => {
+    const loadProducts = async () => {
+      setLoading(true);
+      try {
+        const data = await getAllProducts();
+        setProducts(data);
+      } catch (error) {
+        console.error('Error al cargar productos:', error);
+      } finally {
+        setLoading(false);
+      }
     };
+    loadProducts();
+  }, []);
 
-    return (
-        <div className="products-page">
-            <div className="products-container">
-                <aside className="filters-sidebar">
-                    <h3>Categorías</h3>
-                    <div className="category-filters">
-                        {categories.map(categoria => (
-                            <button
-                                key={categoria}
-                                className={`filter-button ${selectedCategory === categoria ? 'active' : ''}`}
-                                onClick={() => handleCategoryChange(categoria)}
-                            >
-                                {categoria}
-                            </button>
-                        ))}
-                    </div>
-                </aside>
+  /* =============================
+     FILTRAR PRODUCTOS
+  ============================== */
+  useEffect(() => {
+    let filtered = products;
 
-                <main className="products-main">
-                    <div className="products-header">
-                        <h1>
-                            {searchTerm
-                                ? `Resultados para "${searchTerm}"`
-                                : selectedCategory === 'Todas' ? 'Todos los Productos' : selectedCategory
-                            }
-                        </h1>
-                        <p className="products-count">
-                            {filteredProducts.length} producto{filteredProducts.length !== 1 ? 's' : ''}
-                        </p>
-                    </div>
+    if (selectedCategory !== 'Todas') {
+      filtered = filtered.filter(
+        p => p.category.toLowerCase() === selectedCategory.toLowerCase()
+      );
+    }
 
-                    {loading ? (
-                        <div className="loading">Cargando productos desde el servidor...</div>
-                    ) : (
-                        <div className="product-grid">
-                            {filteredProducts.map(product => (
-                                <ProductCard
-                                    key={product.id}
-                                    product={product}
-                                    onAddToCart={handleAddToCart}
-                                />
-                            ))}
-                        </div>
-                    )}
+    if (searchTerm.trim()) {
+      filtered = filtered.filter(p =>
+        p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        p.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (p.description &&
+          p.description.toLowerCase().includes(searchTerm.toLowerCase()))
+      );
+    }
 
-                    {filteredProducts.length === 0 && !loading && (
-                        <div className="no-products">
-                            <p>No se encontraron productos{searchTerm && ` para "${searchTerm}"`}.</p>
-                        </div>
-                    )}
-                </main>
+    setFilteredProducts(filtered);
+  }, [products, selectedCategory, searchTerm]);
+
+  /* =============================
+     AGREGAR AL CARRITO
+  ============================== */
+  const handleAddToCart = (product) => {
+    addToCart({
+      ...product,
+      image: product.image // ✅ ya viene del backend
+    });
+  };
+
+  return (
+    <div className="products-page">
+      <div className="products-container">
+
+        {/* SIDEBAR */}
+        <aside className="filters-sidebar">
+          <h3>Categorías</h3>
+          <div className="category-filters">
+            {categories.map(cat => (
+              <button
+                key={cat}
+                className={`filter-button ${selectedCategory === cat ? 'active' : ''}`}
+                onClick={() => setSelectedCategory(cat)}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        </aside>
+
+        {/* LISTADO */}
+        <main className="products-main">
+          <div className="products-header">
+            <h1>
+              {searchTerm
+                ? `Resultados para "${searchTerm}"`
+                : selectedCategory === 'Todas'
+                ? 'Todos los Productos'
+                : selectedCategory}
+            </h1>
+
+            <p className="products-count">
+              {filteredProducts.length} producto
+              {filteredProducts.length !== 1 ? 's' : ''}
+            </p>
+          </div>
+
+          {loading ? (
+            <div className="loading">Cargando productos...</div>
+          ) : (
+            <div className="product-grid">
+              {filteredProducts.map(product => (
+                <ProductCard
+                  key={product.id}
+                  product={product}
+                  onAddToCart={handleAddToCart}
+                />
+              ))}
             </div>
-        </div>
-    );
+          )}
+
+          {!loading && filteredProducts.length === 0 && (
+            <div className="no-products">
+              <p>No se encontraron productos.</p>
+            </div>
+          )}
+        </main>
+      </div>
+    </div>
+  );
 };
 
 export default Products;

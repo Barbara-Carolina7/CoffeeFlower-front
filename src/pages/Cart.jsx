@@ -8,16 +8,22 @@ import '../styles/pages/Cart.css';
 import { productImages } from "../assets/productImages";
 
 const Cart = () => {
-    const { cartItems, removeFromCart, updateQuantity, getTotalPrice, clearCart } = useCart();
+    const {
+        cartItems,
+        removeFromCart,
+        updateQuantity,
+        clearCart
+    } = useCart();
+
     const { isAuthenticated } = useAuth();
     const navigate = useNavigate();
 
-    const handleDecrease = (id, currentQuantity) => {
+    const handleDecrease = (cartItemId, currentQuantity) => {
         if (currentQuantity > 1) {
-            updateQuantity(id, currentQuantity - 1);
+            updateQuantity(cartItemId, currentQuantity - 1);
         } else {
             const confirmed = window.confirm('¿Deseas eliminar este producto del carrito?');
-            if (confirmed) removeFromCart(id);
+            if (confirmed) removeFromCart(cartItemId);
         }
     };
 
@@ -42,13 +48,53 @@ const Cart = () => {
                     <span className="cart-empty-icon"><FaShoppingCart /></span>
                     <h2>Tu carrito está vacío</h2>
                     <p>Agrega productos para comenzar tu compra</p>
-                    <Button variant="primary" className="checkout-button" onClick={() => navigate('/productos')}>
+                    <Button
+                        variant="primary"
+                        className="checkout-button"
+                        onClick={() => navigate('/productos')}
+                    >
                         Ver Productos
                     </Button>
                 </div>
             </div>
         );
     }
+
+    // 🔧 Normalizar nombre para imágenes
+    const normalizeName = (name) =>
+        name
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "")
+            .replace(/ /g, "");
+
+    // 🖼️ Alias de imágenes
+    const imageAlias = {
+        brownie: "brownies",
+        galletas: "galletaschocolate",
+        tazacafe: "tazadecafe",
+        tazadecafe: "tazadecafe",
+        cappuccino: "capuchino",
+        cafe: "espresso"
+    };
+
+    // 💰 Precio con extras
+    const calculateItemPrice = (item) => {
+        const basePrice = item.discount
+            ? item.price * (1 - item.discount / 100)
+            : item.price;
+
+        let extra = 0;
+        if (item.options?.size === 'Mediano') extra = 500;
+        if (item.options?.size === 'Grande') extra = 1000;
+
+        return (basePrice + extra) * item.quantity;
+    };
+
+    const total = cartItems.reduce(
+        (acc, item) => acc + calculateItemPrice(item),
+        0
+    );
 
     return (
         <div className="cart-page">
@@ -58,36 +104,82 @@ const Cart = () => {
                 <div className="cart-content">
                     <div className="cart-items">
                         {cartItems.map(item => {
-                            const itemPrice = item.discount
+                            const unitPrice = item.discount
                                 ? item.price * (1 - item.discount / 100)
                                 : item.price;
-                            const itemTotal = itemPrice * item.quantity;
 
-                            // Obtener imagen del producto desde productImages
-                            const imageSrc = productImages[item.name.toLowerCase().replace(/ /g, '')] 
-                                || 'https://via.placeholder.com/280x280?text=Sin+Imagen';
+                            const itemTotal = calculateItemPrice(item);
+
+                            const normalized = normalizeName(item.name);
+                            const imageKey = imageAlias[normalized] || normalized;
+
+                            const imageSrc =
+                                productImages[imageKey] ||
+                                'https://via.placeholder.com/280x280?text=Sin+Imagen';
 
                             return (
-                                <div key={item.id} className="cart-item">
-                                    <img src={imageSrc} alt={item.name} className="cart-item-image" />
+                                <div key={item.cartItemId} className="cart-item">
+                                    <img
+                                        src={imageSrc}
+                                        alt={item.name}
+                                        className="cart-item-image"
+                                    />
 
                                     <div className="cart-item-info">
                                         <h3>{item.name}</h3>
                                         <p className="cart-item-category">{item.category}</p>
+
+                                        {item.options && (
+                                            <div className="cart-item-options">
+                                                {item.options.size && (
+                                                    <p><strong>Tamaño:</strong> {item.options.size}</p>
+                                                )}
+                                                {item.options.milk && (
+                                                    <p><strong>Leche:</strong> {item.options.milk}</p>
+                                                )}
+                                                {item.options.beanType && (
+                                                    <p><strong>Tipo de grano:</strong> {item.options.beanType}</p>
+                                                )}
+                                                {item.options.sweetener && (
+                                                    <p><strong>Endulzante:</strong> {item.options.sweetener}</p>
+                                                )}
+                                            </div>
+                                        )}
                                     </div>
 
                                     <div className="cart-item-quantity">
-                                        <button onClick={() => handleDecrease(item.id, item.quantity)}>-</button>
+                                        <button
+                                            onClick={() =>
+                                                handleDecrease(item.cartItemId, item.quantity)
+                                            }
+                                        >
+                                            -
+                                        </button>
                                         <span>{item.quantity}</span>
-                                        <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
+                                        <button
+                                            onClick={() =>
+                                                updateQuantity(item.cartItemId, item.quantity + 1)
+                                            }
+                                        >
+                                            +
+                                        </button>
                                     </div>
 
                                     <div className="cart-item-price">
-                                        <span className="item-unit-price">${Math.round(itemPrice)} c/u</span>
-                                        <span className="item-total-price">${Math.round(itemTotal)}</span>
+                                        <span className="item-unit-price">
+                                            ${Math.round(unitPrice)} c/u
+                                        </span>
+                                        <span className="item-total-price">
+                                            ${Math.round(itemTotal)}
+                                        </span>
                                     </div>
 
-                                    <button className="cart-item-remove" onClick={() => removeFromCart(item.id)}>✕</button>
+                                    <button
+                                        className="cart-item-remove"
+                                        onClick={() => removeFromCart(item.cartItemId)}
+                                    >
+                                        ✕
+                                    </button>
                                 </div>
                             );
                         })}
@@ -98,7 +190,7 @@ const Cart = () => {
 
                         <div className="summary-row">
                             <span>Subtotal:</span>
-                            <span>${Math.round(getTotalPrice())}</span>
+                            <span>${Math.round(total)}</span>
                         </div>
 
                         <div className="summary-row">
@@ -110,19 +202,32 @@ const Cart = () => {
 
                         <div className="summary-row summary-total">
                             <span>Total:</span>
-                            <span>${Math.round(getTotalPrice())}</span>
+                            <span>${Math.round(total)}</span>
                         </div>
 
                         <div className="summary-actions">
-                            <Button variant="primary" className="checkout-button" fullWidth onClick={handleCheckout}>
+                            <Button
+                                variant="primary"
+                                className="checkout-button"
+                                fullWidth
+                                onClick={handleCheckout}
+                            >
                                 {isAuthenticated() ? 'Finalizar Compra' : 'Proceder al Pago'}
                             </Button>
 
-                            <Button variant="outline" className="button-outline" fullWidth onClick={() => navigate('/productos')}>
+                            <Button
+                                variant="outline"
+                                className="button-outline"
+                                fullWidth
+                                onClick={() => navigate('/productos')}
+                            >
                                 Seguir Comprando
                             </Button>
 
-                            <button className="clear-cart" onClick={clearCart}>
+                            <button
+                                className="clear-cart"
+                                onClick={clearCart}
+                            >
                                 Vaciar Carrito
                             </button>
                         </div>
