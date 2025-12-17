@@ -15,21 +15,13 @@ const OPCIONES = {
     'Leche de Avena',
     'Leche de Soya'
   ],
-  tipo_grano: [
-    'Arábica',
-    'Robusta',
-    'Liberica'
-  ],
+  tipo_grano: ['Arábica', 'Robusta', 'Liberica'],
   tamanos: [
     { nombre: 'Pequeño', extra: 0 },
     { nombre: 'Mediano', extra: 500 },
     { nombre: 'Grande', extra: 1000 }
   ],
-  temperaturas: [
-    'Caliente',
-    'Frío',
-    'Helado'
-  ],
+  temperaturas: ['Caliente', 'Frío', 'Helado'],
   endulzantes: [
     'Azúcar Blanca',
     'Azúcar Morena',
@@ -40,15 +32,11 @@ const OPCIONES = {
   ]
 };
 
-/* =======================
-   COMPONENTE
-======================= */
 const ProductCard = ({ product, onAddToCart }) => {
-
   const precioBase = product.price || 0;
 
   /* =======================
-     IMÁGENES
+     IMAGEN
   ======================= */
   const imageKeyMap = {
     Moka: 'moka',
@@ -78,7 +66,7 @@ const ProductCard = ({ product, onAddToCart }) => {
   const esInfusion = product.category === 'Infusiones';
 
   /* =======================
-     ESTADO DE OPCIONES
+     ESTADO OPCIONES
   ======================= */
   const [seleccion, setSeleccion] = useState({
     tipo_leche: OPCIONES.tipos_leche[0],
@@ -95,21 +83,34 @@ const ProductCard = ({ product, onAddToCart }) => {
   const precioFinal = precioBase + (seleccion.tamano?.extra || 0);
 
   /* =======================
-     RENDER
+     AGREGAR AL CARRITO
+     (🔥 CLAVE PARA QUE NO SE CAIGA)
   ======================= */
+  const handleAdd = () => {
+    onAddToCart({
+      ...product,
+      price: precioBase,
+      precioFinal,
+      options: (esCafe || esInfusion)
+        ? {
+            size: seleccion.tamano.nombre,
+            milk: esCafe ? seleccion.tipo_leche : null,
+            beanType: esCafe ? seleccion.tipo_grano : null,
+            temperature: seleccion.temperatura,
+            sweetener: seleccion.endulzante
+          }
+        : null
+    });
+  };
+
   return (
     <div className="product-card">
-
       <div className="product-image">
         <img src={imageSrc} alt={product.name} className="product-img" />
       </div>
 
       <div className="product-info">
-
-        <p className="product-category">
-          {product.category?.toUpperCase()}
-        </p>
-
+        <p className="product-category">{product.category?.toUpperCase()}</p>
         <h3 className="product-name">{product.name}</h3>
 
         {/* PRECIO */}
@@ -119,14 +120,14 @@ const ProductCard = ({ product, onAddToCart }) => {
           </span>
         </div>
 
-        {/* ===== OPCIONES CAFÉ ===== */}
+        {/* ===== OPCIONES SOLO CAFÉ ===== */}
         {esCafe && (
           <>
             <div className="product-option">
               <label>Tipo de leche</label>
               <select onChange={e => cambiar('tipo_leche', e.target.value)}>
                 {OPCIONES.tipos_leche.map(l => (
-                  <option key={l} value={l}>{l}</option>
+                  <option key={l}>{l}</option>
                 ))}
               </select>
             </div>
@@ -135,7 +136,7 @@ const ProductCard = ({ product, onAddToCart }) => {
               <label>Tipo de grano</label>
               <select onChange={e => cambiar('tipo_grano', e.target.value)}>
                 {OPCIONES.tipo_grano.map(g => (
-                  <option key={g} value={g}>{g}</option>
+                  <option key={g}>{g}</option>
                 ))}
               </select>
             </div>
@@ -167,7 +168,7 @@ const ProductCard = ({ product, onAddToCart }) => {
               <label>Temperatura</label>
               <select onChange={e => cambiar('temperatura', e.target.value)}>
                 {OPCIONES.temperaturas.map(t => (
-                  <option key={t} value={t}>{t}</option>
+                  <option key={t}>{t}</option>
                 ))}
               </select>
             </div>
@@ -176,30 +177,16 @@ const ProductCard = ({ product, onAddToCart }) => {
               <label>Endulzante</label>
               <select onChange={e => cambiar('endulzante', e.target.value)}>
                 {OPCIONES.endulzantes.map(ez => (
-                  <option key={ez} value={ez}>{ez}</option>
+                  <option key={ez}>{ez}</option>
                 ))}
               </select>
             </div>
           </>
         )}
 
-        {/* BOTÓN */}
-        <Button
-          variant="primary"
-          fullWidth
-          onClick={() =>
-            onAddToCart(
-              product,
-              {
-                ...seleccion,
-                precioFinal
-              }
-            )
-          }
-        >
+        <Button variant="primary" fullWidth onClick={handleAdd}>
           Agregar al Carrito
         </Button>
-
       </div>
     </div>
   );
