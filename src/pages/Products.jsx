@@ -1,4 +1,3 @@
-// src/pages/Products.jsx
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import ProductCard from '../components/atoms/ProductCard';
@@ -15,17 +14,16 @@ const Products = () => {
   const [loading, setLoading] = useState(true);
 
   const { addToCart } = useCart();
-
   const categoryParam = searchParams.get('categoria');
   const searchTerm = searchParams.get('buscar') || '';
 
   /* =============================
-     CARGAR CATEGORÍAS
+     CARGAR CATEGORÍAS REALES
   ============================== */
   useEffect(() => {
     const loadCategories = async () => {
       try {
-        const data = await getCategories();
+        const data = await getCategories(); // Solo categorías reales desde backend
         setCategories(['Todas', ...data.map(c => c.name)]);
       } catch (error) {
         console.error('Error al cargar categorías:', error);
@@ -35,7 +33,7 @@ const Products = () => {
   }, []);
 
   /* =============================
-     DETECTAR CATEGORÍA URL
+     DETECTAR CATEGORÍA DESDE URL
   ============================== */
   useEffect(() => {
     if (categoryParam) {
@@ -86,19 +84,15 @@ const Products = () => {
   }, [products, selectedCategory, searchTerm]);
 
   /* =============================
-     AGREGAR AL CARRITO
+     AGREGAR PRODUCTO AL CARRITO
   ============================== */
   const handleAddToCart = (product) => {
-    addToCart({
-      ...product,
-      image: product.image // ✅ ya viene del backend
-    });
+    addToCart(product);
   };
 
   return (
     <div className="products-page">
       <div className="products-container">
-
         {/* SIDEBAR */}
         <aside className="filters-sidebar">
           <h3>Categorías</h3>
@@ -115,7 +109,7 @@ const Products = () => {
           </div>
         </aside>
 
-        {/* LISTADO */}
+        {/* LISTADO DE PRODUCTOS */}
         <main className="products-main">
           <div className="products-header">
             <h1>

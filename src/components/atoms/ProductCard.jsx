@@ -59,9 +59,6 @@ const ProductCard = ({ product, onAddToCart }) => {
     product.image ||
     'https://via.placeholder.com/280x280?text=Sin+Imagen';
 
-  /* =======================
-     CATEGORÍAS
-  ======================= */
   const esCafe = product.category === 'Café';
   const esInfusion = product.category === 'Infusiones';
 
@@ -84,7 +81,6 @@ const ProductCard = ({ product, onAddToCart }) => {
 
   /* =======================
      AGREGAR AL CARRITO
-     (🔥 CLAVE PARA QUE NO SE CAIGA)
   ======================= */
   const handleAdd = () => {
     onAddToCart({
@@ -120,32 +116,31 @@ const ProductCard = ({ product, onAddToCart }) => {
           </span>
         </div>
 
-        {/* ===== OPCIONES SOLO CAFÉ ===== */}
-        {esCafe && (
-          <>
-            <div className="product-option">
-              <label>Tipo de leche</label>
-              <select onChange={e => cambiar('tipo_leche', e.target.value)}>
-                {OPCIONES.tipos_leche.map(l => (
-                  <option key={l}>{l}</option>
-                ))}
-              </select>
-            </div>
-
-            <div className="product-option">
-              <label>Tipo de grano</label>
-              <select onChange={e => cambiar('tipo_grano', e.target.value)}>
-                {OPCIONES.tipo_grano.map(g => (
-                  <option key={g}>{g}</option>
-                ))}
-              </select>
-            </div>
-          </>
-        )}
-
-        {/* ===== CAFÉ + INFUSIONES ===== */}
+        {/* OPCIONES SOLO PARA CAFÉ O INFUSIONES */}
         {(esCafe || esInfusion) && (
           <>
+            {esCafe && (
+              <div className="product-option">
+                <label>Tipo de leche</label>
+                <select onChange={e => cambiar('tipo_leche', e.target.value)}>
+                  {OPCIONES.tipos_leche.map(l => (
+                    <option key={l}>{l}</option>
+                  ))}
+                </select>
+              </div>
+            )}
+
+            {esCafe && (
+              <div className="product-option">
+                <label>Tipo de grano</label>
+                <select onChange={e => cambiar('tipo_grano', e.target.value)}>
+                  {OPCIONES.tipo_grano.map(g => (
+                    <option key={g}>{g}</option>
+                  ))}
+                </select>
+              </div>
+            )}
+
             <div className="product-option">
               <label>Tamaño</label>
               <select
