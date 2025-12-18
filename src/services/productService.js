@@ -28,8 +28,6 @@ const mapProductFromBackend = (producto) => ({
   stock: producto.stock,
   category: producto.categoria?.nombre || 'Sin categoría',
   categoryId: producto.categoria?.id || null,
-
-  // 👇 IMAGEN (MUY IMPORTANTE)
   image:
     producto.imagenUrl ||
     producto.imagenes?.[0]?.url ||
@@ -73,37 +71,19 @@ export const getProductById = async (id) => {
 
 export const createProduct = async (productData, file = null) => {
   let imageUrl = productData.image || null;
+  if (file) imageUrl = await imageService.uploadProductImage(file);
 
-  if (file) {
-    imageUrl = await imageService.uploadProductImage(file);
-  }
-
-  const backendProduct = mapProductToBackend({
-    ...productData,
-    image: imageUrl
-  });
-
+  const backendProduct = mapProductToBackend({ ...productData, image: imageUrl });
   const response = await axios.post(`${BASE_URL}/productos`, backendProduct);
   return mapProductFromBackend(response.data);
 };
 
 export const updateProduct = async (id, productData, file = null) => {
   let imageUrl = productData.image || null;
+  if (file) imageUrl = await imageService.uploadProductImage(file);
 
-  if (file) {
-    imageUrl = await imageService.uploadProductImage(file);
-  }
-
-  const backendProduct = mapProductToBackend({
-    ...productData,
-    image: imageUrl
-  });
-
-  const response = await axios.put(
-    `${BASE_URL}/productos/${id}`,
-    backendProduct
-  );
-
+  const backendProduct = mapProductToBackend({ ...productData, image: imageUrl });
+  const response = await axios.put(`${BASE_URL}/productos/${id}`, backendProduct);
   return mapProductFromBackend(response.data);
 };
 
