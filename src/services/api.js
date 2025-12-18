@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // URL base del backend (ya incluye /api)
-const API_URL = import.meta.env.VITE_API_URL || 'https://coffeflowerfull.onrender.com/api';
+const API_URL = import.meta.env.VITE_API_URL || 'https://coffeflowerfull-backend.onrender.com/api';
 const API_TIMEOUT = import.meta.env.VITE_API_TIMEOUT || 20000; // 20 segundos para Render
 
 // Crear instancia de axios
